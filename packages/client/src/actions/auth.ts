@@ -1,21 +1,26 @@
-import APIAuth from '../api/APIAuth';
+import APIAuth, { typeSignin, typeSignup } from '../api/APIAuth';
 
 export enum AuthActions {
   Signup = 'signup',
-  Signin = 'signin',
-  GetUser = 'getUser',
+  SetAuth = 'setAuth',
+  SetUser = 'setUser',
   Logout = 'logout'
 }
 
-export const signin = (data) => {
+export type typeAuthAction = {
+  type: AuthActions,
+  isAuth?: boolean,
+}
+
+export const signin = (data: typeSignin) => {
   return (dispatch) => {
     return APIAuth.signin(data)
       .then(({ data }) => {
         console.log(data);
-        console.log(dispatch); // TODO: диспатчить нормальные действия
+        dispatch(setAuth(true))
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        dispatch(setAuth(false))
       })
   }
 }
@@ -25,10 +30,14 @@ export const getUser = () => {
     return APIAuth.getUser()
       .then(({ data }) => {
         console.log(data);
-        console.log(dispatch); // TODO: диспатчить нормальные действия
+        dispatch(setAuth(true))
+        dispatch(setUser(data))
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        dispatch(setAuth(false))
       })
   }
 }
+
+const setAuth = (isAuth: boolean) => ({ type: AuthActions.SetAuth, isAuth });
+const setUser = (data: typeSignup) => ({ type: AuthActions.SetUser, data });

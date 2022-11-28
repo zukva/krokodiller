@@ -1,6 +1,6 @@
 import { HTTPTransport } from "../services/HTTPTransport";
 
-type typeSignup = {
+export type typeSignup = {
   first_name: string,
   second_name: string,
   login: string,
@@ -9,7 +9,7 @@ type typeSignup = {
   phone: string,
 }
 
-type typeSignin = {
+export type typeSignin = {
   login: string,
   password: string,
 }
