@@ -19,4 +19,6 @@ export type typeState = {
   image: typeImage
 }
 
+export type AppDispatch = typeof store.dispatch;
+
 export const store = createStore(reducers, applyMiddleware(thunk));

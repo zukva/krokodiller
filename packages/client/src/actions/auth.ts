@@ -1,5 +1,9 @@
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { AnyAction } from 'redux';
+
 import APIAuth, { typeSignin, typeSignup } from '../api/APIAuth';
 import { setLoading } from './common';
+import { typeState } from '../store';
 
 export enum AuthActions {
   Signup = 'signup',
@@ -18,8 +22,8 @@ export type typeUserAction = {
   data: typeSignup,
 }
 
-export const signin = (data: typeSignin) => {
-  return (dispatch) => {
+export const signin = (data: typeSignin): ThunkAction<void, typeState, unknown, AnyAction> => {
+  return (dispatch: ThunkDispatch<typeState, unknown, AnyAction>) => {
     dispatch(setLoading(true))
     return APIAuth.signin(data)
       .then(() => {
@@ -34,8 +38,8 @@ export const signin = (data: typeSignin) => {
   }
 }
 
-export const getUser = () => {
-  return (dispatch) => {
+export const getUser = (): ThunkAction<void, typeState, unknown, AnyAction> => {
+  return (dispatch: ThunkDispatch<typeState, unknown, AnyAction>) => {
     dispatch(setLoading(true))
     return APIAuth.getUser()
       .then(({ data }) => {

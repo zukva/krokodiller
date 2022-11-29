@@ -6,10 +6,11 @@ import { Preloader } from './components/common/preloader'
 import { MainRouter } from '../src/routs/MainRouter'
 
 import './App.css'
+import { AppDispatch } from './store'
 
 function App() {
   // get data from local server
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     dispatch(getUser())
