@@ -74,3 +74,8 @@
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+## TODO
+
+- типизировать redux!!1
+- подумать как сделать и потом сделать actionCreator

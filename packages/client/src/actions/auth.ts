@@ -1,4 +1,9 @@
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { AnyAction } from 'redux';
+
 import APIAuth, { typeSignin, typeSignup } from '../api/APIAuth';
+import { setLoading } from './common';
+import { typeState } from '../store';
 
 export enum AuthActions {
   Signup = 'signup',
@@ -8,33 +13,44 @@ export enum AuthActions {
 }
 
 export type typeAuthAction = {
-  type: AuthActions,
-  isAuth?: boolean,
+  type: AuthActions.SetAuth,
+  isAuth: boolean,
 }
 
-export const signin = (data: typeSignin) => {
-  return (dispatch) => {
+export type typeUserAction = {
+  type: AuthActions.SetUser,
+  data: typeSignup,
+}
+
+export const signin = (data: typeSignin): ThunkAction<void, typeState, unknown, AnyAction> => {
+  return (dispatch: ThunkDispatch<typeState, unknown, AnyAction>) => {
+    dispatch(setLoading(true))
     return APIAuth.signin(data)
-      .then(({ data }) => {
-        console.log(data);
+      .then(() => {
         dispatch(setAuth(true))
       })
       .catch(() => {
         dispatch(setAuth(false))
       })
+      .finally(() => {
+        dispatch(setLoading(false))
+      })
   }
 }
 
-export const getUser = () => {
-  return (dispatch) => {
+export const getUser = (): ThunkAction<void, typeState, unknown, AnyAction> => {
+  return (dispatch: ThunkDispatch<typeState, unknown, AnyAction>) => {
+    dispatch(setLoading(true))
     return APIAuth.getUser()
       .then(({ data }) => {
-        console.log(data);
         dispatch(setAuth(true))
         dispatch(setUser(data))
       })
       .catch(() => {
         dispatch(setAuth(false))
+      })
+      .finally(() => {
+        dispatch(setLoading(false))
       })
   }
 }

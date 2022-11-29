@@ -1,23 +1,20 @@
 import React from 'react'
-import { signin, getUser } from '../../../actions/auth'
 import { useDispatch } from 'react-redux'
 
+import { signin } from '../../../actions/auth'
+import { AppDispatch } from '../../../store'
+
 export const LoginPage: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const clickLogin = () => {
-    dispatch(signin({ login: 'Lolgin', password: 'parol' }))
-  }
-
-  const clickUser = () => {
-    dispatch(getUser())
+    dispatch(signin({ login: 'Lolgin', password: 'parol' })) // TODO: собирать данные из формы TEA2-14
   }
 
   return (
     <div>
       login page
       <button onClick={clickLogin}>login</button>
-      <button onClick={clickUser}>user</button>
     </div>
   )
 }

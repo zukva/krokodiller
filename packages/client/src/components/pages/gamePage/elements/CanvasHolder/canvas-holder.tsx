@@ -1,15 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { addSegment, addPoint } from '../actions/image'
-import { typePoint, typeState } from '../store'
+import { addSegment, addPoint } from '../../../../../actions/image'
+import { typePoint, typeState } from '../../../../../store'
 
 export const CanvasHolder = () => {
   const dispatch = useDispatch()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const image = useSelector((state: typeState) => state.image)
-
-  const [coord, setCoord] = useState<typePoint>({ x: 0, y: 0 })
 
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d')
@@ -34,7 +32,6 @@ export const CanvasHolder = () => {
   const moveHandler = (e: MouseEvent): void => {
     const x = e.offsetX
     const y = e.offsetY
-    setCoord({ x, y })
     dispatch(addPoint({ x, y }))
   }
 
@@ -50,8 +47,7 @@ export const CanvasHolder = () => {
   }
 
   return (
-    <div>
-      <div>{JSON.stringify(coord)}</div>
+    <div className='game'>
       <canvas
         ref={canvasRef}
         width="300px"
