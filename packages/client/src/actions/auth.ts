@@ -1,4 +1,4 @@
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 import APIAuth, { typeSignin, typeSignup } from '../api/APIAuth';
