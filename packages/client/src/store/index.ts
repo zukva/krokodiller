@@ -4,7 +4,6 @@ import thunk from 'redux-thunk'
 import { reducers } from '../reducers'
 import { typeSignup } from '../api/APIAuth';
 
-
 export type typePoint = {
   x: number
   y: number
