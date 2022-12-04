@@ -3,14 +3,14 @@ import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { ROUTS } from '../routs/routsList'
-import { typeState } from '../store'
+import { RootState } from '../store/rootReducer'
 
 type typeProtectedRout = {
   children: JSX.Element
 }
 
 const ProtectedRoute: React.FC<typeProtectedRout> = ({ children }) => {
-  const { isAuth, isLoading } = useSelector((state: typeState) => ({
+  const { isAuth, isLoading } = useSelector((state: RootState) => ({
     isAuth: state.isAuth,
     isLoading: state.isLoading,
   }))

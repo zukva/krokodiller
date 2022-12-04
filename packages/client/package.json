@@ -11,6 +11,7 @@
     "test": "jest ./"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "@types/redux": "^3.6.0",
     "axios": "^1.2.0",
     "dotenv": "^16.0.2",

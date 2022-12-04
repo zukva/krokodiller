@@ -1,14 +1,20 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { signin } from '../../../actions/auth'
 import { AppDispatch } from '../../../store'
+import { RootState } from '../../../store/rootReducer'
+import { login } from './authSlice'
 
 export const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const isAuth = useSelector((state: RootState) => state.isAuth)
+
+  useEffect(() => {
+    console.log(isAuth)
+  }, [isAuth])
 
   const clickLogin = () => {
-    dispatch(signin({ login: 'Lolgin', password: 'parol' })) // TODO: собирать данные из формы TEA2-14
+    dispatch(login({ login: 'Lolgin', password: 'parol' }))
   }
 
   return (
