@@ -1,24 +1,11 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
+import { configureStore, AnyAction } from '@reduxjs/toolkit';
+import { ThunkAction } from 'redux-thunk'
 
-import { reducers } from '../reducers'
-import { typeSignup } from '../api/APIAuth';
+import rootReducer, { RootState } from './rootReducer'
 
-
-export type typePoint = {
-  x: number
-  y: number
-}
-export type typeSegment = Array<typePoint>;
-export type typeImage = Array<typeSegment>;
-
-export type typeState = {
-  isLoading: boolean,
-  isAuth: boolean,
-  user: typeSignup,
-  image: typeImage
-}
+export const store = configureStore({
+  reducer: rootReducer
+})
 
 export type AppDispatch = typeof store.dispatch;
-
-export const store = createStore(reducers, applyMiddleware(thunk));
+export type AppThunk = ThunkAction<void, RootState, undefined, AnyAction>;

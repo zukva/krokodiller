@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import * as React from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { getUser } from './actions/auth'
+import { getUser } from './components/pages/profile/profileSlice'
 import { Preloader } from './components/common/preloader'
 import { MainRouter } from '../src/routs/MainRouter'
 
@@ -9,9 +10,9 @@ import './App.css'
 import { AppDispatch } from './store'
 
 function App() {
-  // get data from local server
   const dispatch = useDispatch<AppDispatch>()
 
+  // get data from local server
   useEffect(() => {
     dispatch(getUser())
   }, [])

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
 import { ROUTS } from '../routs/routsList'

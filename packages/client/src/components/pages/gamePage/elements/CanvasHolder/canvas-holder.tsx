@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { addSegment, addPoint } from '../../../../../actions/image'
-import { typePoint, typeState } from '../../../../../store'
+import { RootState } from '../../../../../store/rootReducer'
+import { addPoint, addSegment, typeImage } from './imageSlice'
 
 export const CanvasHolder = () => {
   const dispatch = useDispatch()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const image = useSelector((state: typeState) => state.image)
+  const image = useSelector((state: RootState) => state.image) as typeImage
 
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d')
@@ -47,7 +47,7 @@ export const CanvasHolder = () => {
   }
 
   return (
-    <div className='game'>
+    <div className="game">
       <canvas
         ref={canvasRef}
         width="300px"

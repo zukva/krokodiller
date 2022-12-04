@@ -1,10 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-
-import { typeState } from '../../../store'
+import { RootState } from '../../../store/rootReducer'
+import { typeProfileState } from './profileSlice'
 
 export const ProfilePage: React.FC = () => {
-  const user = useSelector((state: typeState) => state.user)
+  const user = useSelector(
+    (state: RootState) => state.profile
+  ) as typeProfileState
 
   return (
     <div>
