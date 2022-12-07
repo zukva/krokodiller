@@ -25,7 +25,7 @@ export const Form: FC<IForm> = ({ config, buttonLabel, onSubmit }) => {
       <FormikForm>
         <Container>
           {fields}
-          <Button type="submit">{buttonLabel}</Button>
+          <Button>{buttonLabel}</Button>
         </Container>
       </FormikForm>
     </Formik>

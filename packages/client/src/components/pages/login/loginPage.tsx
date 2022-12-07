@@ -15,7 +15,7 @@ const FIELDS: typeFormConfig = {
 export const LoginPage: React.FC = () => {
   const isAuth = false // TODO: тут брать из редукса
   const navigate = useNavigate()
-
+// БЛДЖАААААД!!1 тип в другой ветке =(((
   const submit = values => {
     console.log(values)
   }
@@ -28,7 +28,7 @@ export const LoginPage: React.FC = () => {
     <PageContainer>
       {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
       <Plate>
-        <Label size='l'>вход</Label>
+        <Label size="l">вход</Label>
         <Form config={FIELDS} buttonLabel="войти" onSubmit={submit}></Form>
         <button onClick={redirect}>зарегестрироваться</button>
       </Plate>
