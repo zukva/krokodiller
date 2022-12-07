@@ -1,28 +1,16 @@
-import React, { useEffect } from 'react'
-import './App.css'
+import React from 'react'
+
 import { MainRouter } from '../src/routs/MainRouter'
 
 function App() {
-
   const isAuth = true // mock auth
 
-  // get data from local server
-
-  // useEffect(() => {
-  //   const fetchServerData = async () => {
-  //     const url = `http://localhost:${ __SERVER_PORT__ }`
-  //     const response = await fetch(url)
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-  //
-  //   fetchServerData()
-  // }, [])
   return (
-    <div className='App'>
+    <div className="App">
       Вот тут будет жить ваше приложение :)
-      <MainRouter isAuth={ isAuth } />
-    </div> )
+      <MainRouter isAuth={isAuth} />
+    </div>
+  )
 }
 
 export default App
