@@ -1,28 +1,29 @@
-import React, { useEffect } from 'react'
-import './App.css'
+import * as React from 'react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { getUser } from './components/pages/profile/profileSlice'
+import { Preloader } from './components/common/preloader'
 import { MainRouter } from '../src/routs/MainRouter'
 
-function App() {
+import './App.css'
+import { AppDispatch } from './store'
 
-  const isAuth = true // mock auth
+function App() {
+  const dispatch = useDispatch<AppDispatch>()
 
   // get data from local server
+  useEffect(() => {
+    dispatch(getUser())
+  }, [])
 
-  // useEffect(() => {
-  //   const fetchServerData = async () => {
-  //     const url = `http://localhost:${ __SERVER_PORT__ }`
-  //     const response = await fetch(url)
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-  //
-  //   fetchServerData()
-  // }, [])
   return (
-    <div className='App'>
+    <div className="App">
+      <Preloader />
       Вот тут будет жить ваше приложение :)
-      <MainRouter isAuth={ isAuth } />
-    </div> )
+      <MainRouter />
+    </div>
+  )
 }
 
 export default App

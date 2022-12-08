@@ -1,16 +1,11 @@
-import { createStore } from 'redux';
+import { configureStore, AnyAction } from '@reduxjs/toolkit';
+import { ThunkAction } from 'redux-thunk'
 
-import { reducers } from '../reducers'
+import rootReducer, { RootState } from './rootReducer'
 
-export type typePoint = {
-  x: number
-  y: number
-}
-export type typeSegment = Array<typePoint>;
-export type typeImage = Array<typeSegment>;
+export const store = configureStore({
+  reducer: rootReducer
+})
 
-export type typeState = {
-  image: typeImage
-}
-
-export const store = createStore(reducers);
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk = ThunkAction<void, RootState, undefined, AnyAction>;
