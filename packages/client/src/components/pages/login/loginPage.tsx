@@ -7,6 +7,7 @@ import { PageContainer, Plate } from '../../../styled'
 
 import { Label } from '../../common/label'
 import { Form, typeFormConfig } from '../../common/form'
+import { typeSignin } from '../../../api/APIAuth'
 
 const FIELDS: typeFormConfig = {
   login: { label: 'логин', value: '' },
@@ -16,8 +17,8 @@ const FIELDS: typeFormConfig = {
 export const LoginPage: React.FC = () => {
   const isAuth = useSelector((state: RootState) => state.isAuth)
   const navigate = useNavigate()
-// БЛДЖАААААД!!1 тип в другой ветке =(((
-  const submit = values => {
+
+  const submit = (values: Record<string, string>) => {
     console.log(values)
   }
 
