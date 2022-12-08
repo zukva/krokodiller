@@ -1,6 +1,7 @@
-import React from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../store/rootReducer'
 import { ROUTS } from '../../../routs/routsList'
 import { PageContainer, Plate } from '../../../styled'
 
@@ -13,7 +14,7 @@ const FIELDS: typeFormConfig = {
 }
 
 export const LoginPage: React.FC = () => {
-  const isAuth = false // TODO: тут брать из редукса
+  const isAuth = useSelector((state: RootState) => state.isAuth)
   const navigate = useNavigate()
 // БЛДЖАААААД!!1 тип в другой ветке =(((
   const submit = values => {

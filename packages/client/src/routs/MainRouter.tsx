@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
 import { ROUTS } from '../routs/routsList'
@@ -11,11 +11,7 @@ import { ProfilePage } from '../components/pages/profile/profile'
 import { GamePage } from '../components/pages/gamePage/gamePage'
 import ProtectedRoute from '../HOC/ProtectedRout'
 
-interface IMainRouter {
-  isAuth: boolean
-}
-
-export const MainRouter: React.FC<IMainRouter> = ({ isAuth }) => {
+export const MainRouter: React.FC = () => {
   return (
     <ErrorBoundary>
       <Routes>
@@ -24,7 +20,7 @@ export const MainRouter: React.FC<IMainRouter> = ({ isAuth }) => {
         <Route
           path={ROUTS.LEADERBOARD_PAGE}
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute>
               <LeaderBoardPage />
             </ProtectedRoute>
           }
@@ -32,7 +28,7 @@ export const MainRouter: React.FC<IMainRouter> = ({ isAuth }) => {
         <Route
           path={ROUTS.FORUM_PAGE}
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute>
               <ForumPage />
             </ProtectedRoute>
           }
@@ -41,7 +37,7 @@ export const MainRouter: React.FC<IMainRouter> = ({ isAuth }) => {
         <Route
           path={ROUTS.PROFILE_PAGE}
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute>
               <ProfilePage />
             </ProtectedRoute>
           }
@@ -49,7 +45,7 @@ export const MainRouter: React.FC<IMainRouter> = ({ isAuth }) => {
         <Route
           path={ROUTS.GAME_PAGE}
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute>
               <GamePage />
             </ProtectedRoute>
           }
