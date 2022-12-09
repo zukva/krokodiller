@@ -1,5 +1,5 @@
 // TODO: как-то не здорово white: 'white', надо перепридумать
-export const theme = {
+export const COLORS = {
   colors: {
     primary: '#058240',
     primaryLighter: '#87C159',
@@ -9,7 +9,23 @@ export const theme = {
     common: {
       white: 'white'
     }
-  },
+  }
+};
+
+export const COLORS2 = {
+  colors: {
+    primary: 'red',
+    primaryLighter: '#872259',
+    secondary: '#F3330a',
+    secondaryLighter: '#FaE3A1',
+    accent: '#A000CB',
+    common: {
+      white: 'white'
+    }
+  }
+};
+
+export const COMMON = {
   fonts: {
     size: {
       s: '12px',
