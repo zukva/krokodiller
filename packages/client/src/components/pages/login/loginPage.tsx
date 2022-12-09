@@ -1,26 +1,39 @@
+import { Navigate, useNavigate } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { AppDispatch } from '../../../store'
 import { RootState } from '../../../store/rootReducer'
-import { login } from './authSlice'
+import { ROUTS } from '../../../routs/routsList'
+import { PageContainer, Plate } from '../../../styled'
+
+import { Label } from '../../common/label'
+import { Form, typeFormConfig } from '../../common/form'
+import { typeSignin } from '../../../api/APIAuth'
+
+const FIELDS: typeFormConfig = {
+  login: { label: 'логин', value: '' },
+  password: { label: 'пароль', value: '' },
+}
 
 export const LoginPage: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
   const isAuth = useSelector((state: RootState) => state.isAuth)
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    console.log(isAuth)
-  }, [isAuth])
+  const submit = (values: Record<string, string>) => {
+    console.log(values)
+  }
 
-  const clickLogin = () => {
-    dispatch(login({ login: 'Lolgin', password: 'parol' }))
+  const redirect = () => {
+    navigate(ROUTS.REGISTER_PAGE)
   }
 
   return (
-    <div>
-      login page
-      <button onClick={clickLogin}>login</button>
-    </div>
+    <PageContainer>
+      {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
+      <Plate>
+        <Label size="l">вход</Label>
+        <Form config={FIELDS} buttonLabel="войти" onSubmit={submit}></Form>
+        <button onClick={redirect}>зарегестрироваться</button>
+      </Plate>
+    </PageContainer>
   )
 }

@@ -6,7 +6,6 @@ import { getUser } from './components/pages/profile/profileSlice'
 import { Preloader } from './components/common/preloader'
 import { MainRouter } from '../src/routs/MainRouter'
 
-import './App.css'
 import { AppDispatch } from './store'
 
 function App() {
