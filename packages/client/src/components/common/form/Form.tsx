@@ -1,33 +1,45 @@
 import React, { FC } from 'react'
-import { Formik, Form as FormikForm, Field } from 'formik'
+import { useFormik } from 'formik'
+import { Container, TextField, Button } from '@mui/material'
 
-import { Button } from '../button'
-
-import { Container } from './styled'
-import { typeFormConfig, IForm } from './types'
-
-import { FieldInput } from './elements/fieldInput'
-
-const getFields = (cfg: typeFormConfig) => ({
-  initialValues: Object.entries(cfg).reduce((prev, [key, value]) => {
-    return { ...prev, [key]: value.value }
-  }, {}),
-  fields: Object.keys(cfg).map(key => {
-    return <FieldInput key={key} name={key} />
-  }),
-})
+import { IForm } from './types'
 
 export const Form: FC<IForm> = ({ config, buttonLabel, onSubmit }) => {
-  const { initialValues, fields } = getFields(config)
+  const { handleSubmit, handleChange, values } = useFormik<
+    Record<string, string>
+  >({
+    initialValues: Object.entries(config).reduce(
+      (prev, [key, { value }]) => ({ ...prev, [key]: value }),
+      {}
+    ),
+    onSubmit,
+  })
 
   return (
-    <Formik initialValues={initialValues} onSubmit={values => onSubmit(values)}>
-      <FormikForm>
-        <Container>
-          {fields}
-          <Button>{buttonLabel}</Button>
-        </Container>
-      </FormikForm>
-    </Formik>
+    <form onSubmit={handleSubmit}>
+      <Container
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '300px',
+        }}>
+        {Object.entries(config).map(([key, { label }]) => (
+          <TextField
+            fullWidth
+            variant="standard"
+            key={key}
+            id={key}
+            name={key}
+            label={label}
+            value={values[key]}
+            onChange={handleChange}
+          />
+        ))}
+        <Button type="submit" variant="contained">
+          {buttonLabel}
+        </Button>
+      </Container>
+    </form>
   )
 }

@@ -1,12 +1,13 @@
+import React from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button, Container, Box, Typography } from '@mui/material'
 import { RootState } from '../../../store/rootReducer'
 import { ROUTS } from '../../../routs/routsList'
-import { PageContainer, Plate } from '../../../styled'
 
-import { Label } from '../../common/label'
 import { Form, typeFormConfig } from '../../common/form'
+import { AppDispatch } from '../../../store'
+import { login } from './authSlice'
 import { typeSignin } from '../../../api/APIAuth'
 
 const FIELDS: typeFormConfig = {
@@ -16,10 +17,11 @@ const FIELDS: typeFormConfig = {
 
 export const LoginPage: React.FC = () => {
   const isAuth = useSelector((state: RootState) => state.isAuth)
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
 
   const submit = (values: Record<string, string>) => {
-    console.log(values)
+    dispatch(login(values as typeSignin))
   }
 
   const redirect = () => {
@@ -27,13 +29,24 @@ export const LoginPage: React.FC = () => {
   }
 
   return (
-    <PageContainer>
+    <Container maxWidth="sm">
       {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
-      <Plate>
-        <Label size="l">вход</Label>
+      <Box
+        sx={{
+          bgcolor: 'background.paper',
+          boxShadow: 1,
+          borderRadius: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Typography>вход</Typography>
         <Form config={FIELDS} buttonLabel="войти" onSubmit={submit}></Form>
-        <button onClick={redirect}>зарегестрироваться</button>
-      </Plate>
-    </PageContainer>
+        <Button variant="text" onClick={redirect}>
+          зарегестрироваться
+        </Button>
+      </Box>
+    </Container>
   )
 }
