@@ -6,8 +6,8 @@ import { getUser } from './components/pages/profile/profileSlice'
 import { Preloader } from './components/common/preloader'
 import { MainRouter } from '../src/routs/MainRouter'
 
-import './App.css'
 import { AppDispatch } from './store'
+import { CssBaseline } from '@mui/material'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -18,7 +18,8 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
+    <div>
+      <CssBaseline />
       <Preloader />
       Вот тут будет жить ваше приложение :)
       <MainRouter />
