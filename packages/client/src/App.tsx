@@ -1,16 +1,15 @@
-import * as React from 'react'
+import React from 'react'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { getUser } from './components/pages/profile/profileSlice'
 import { Preloader } from './components/common/preloader'
-import { MainRouter } from '../src/routs/MainRouter'
+import { MainRouter } from './routs/MainRouter'
 
-import { AppDispatch } from './store'
 import { CssBaseline } from '@mui/material'
+import { useAppDispatch } from './hooks/store'
 
 function App() {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
   // get data from local server
   useEffect(() => {
@@ -21,7 +20,6 @@ function App() {
     <div>
       <CssBaseline />
       <Preloader />
-      Вот тут будет жить ваше приложение :)
       <MainRouter />
     </div>
   )

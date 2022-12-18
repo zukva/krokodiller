@@ -1,8 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../store/rootReducer'
+
+import { useAppSelector } from '../../../hooks/store'
 
 export const Preloader: React.FC = () => {
-  const isLoading = useSelector((state: RootState) => state.isLoading)
+  const isLoading = useAppSelector(state => state.isLoading)
   return isLoading ? <div className="preloader">загрузка...</div> : null
 }

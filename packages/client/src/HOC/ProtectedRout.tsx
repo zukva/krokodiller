@@ -1,25 +1,28 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { ROUTS } from '../routs/routsList'
-import { RootState } from '../store/rootReducer'
+import { RootState } from '../store'
 
 type typeProtectedRout = {
   children: JSX.Element
 }
 
 const ProtectedRoute: React.FC<typeProtectedRout> = ({ children }) => {
+  const navigate = useNavigate()
   const { isAuth, isLoading } = useSelector((state: RootState) => ({
     isAuth: state.isAuth,
     isLoading: state.isLoading,
   }))
 
-  if (!isAuth && !isLoading) {
-    return <Navigate to={ROUTS.LOGIN_PAGE} replace={true} />
-  }
+  useEffect(() => {
+    if (!isLoading && !isAuth) {
+      navigate(ROUTS.LOGIN_PAGE)
+    }
+  }, [isLoading, isAuth])
 
-  return children
+  return isLoading ? null : children
 }
 
 export default ProtectedRoute
