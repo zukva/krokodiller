@@ -1,13 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useRef, useEffect } from 'react'
 
-import { RootState } from '../../../../../store/rootReducer'
 import { addPoint, addSegment, typeImage } from './imageSlice'
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/store'
 
 export const CanvasHolder = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const image = useSelector((state: RootState) => state.image) as typeImage
+  const image = useAppSelector(state => state.image) as typeImage
 
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d')

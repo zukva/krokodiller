@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
-import { ROUTS } from '../routs/routsList'
+import { ROUTS } from './routsList'
 import { StartPage } from '../components/pages/startPage/startPage'
 import { LoginPage } from '../components/pages/login/loginPage'
 import { RegisterPage } from '../components/pages/register/registerPage'
@@ -50,7 +50,7 @@ export const MainRouter: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path={ROUTS.START_PAGE} index element={<StartPage />}></Route>
+        <Route path={ROUTS.START_PAGE} index element={<StartPage />} />
       </Routes>
     </ErrorBoundary>
   )

@@ -1,17 +1,22 @@
-import { combineReducers } from '@reduxjs/toolkit'
+import { combineReducers, Reducer } from '@reduxjs/toolkit'
 
-import isAuth from '../components/pages/login/authSlice';
-import isLoading from '../components/common/preloader/loadingSlice';
+import isAuth from '../components/pages/login/authSlice'
+import isLoading from '../components/common/preloader/loadingSlice'
 import profile from '../components/pages/profile/profileSlice'
 import image from '../components/pages/gamePage/elements/CanvasHolder/imageSlice'
 
-const rootReducer = combineReducers({
+const makeRootReducer = (reducers: Record<string, Reducer>) =>
+  combineReducers({
+    isLoading,
+    isAuth,
+    profile,
+    image,
+    ...reducers,
+  })
+
+export const initServerReducer = combineReducers({
   isLoading,
   isAuth,
-  profile,
-  image,
-});
+})
 
-export type RootState = ReturnType<typeof rootReducer>;
-
-export default rootReducer;
+export default makeRootReducer

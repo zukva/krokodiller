@@ -1,16 +1,14 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { Container, Box, Typography, Button } from '@mui/material'
 
 import { register } from '../login/authSlice'
-import { typeFormConfig, Form } from '../../common/form'
+import { TypeFormConfig, Form } from '../../common/form'
 import { typeSignup } from '../../../api/APIAuth'
-import { RootState } from '../../../store/rootReducer'
-import { AppDispatch } from '../../../store'
 import { ROUTS } from '../../../routs/routsList'
+import { useAppDispatch, useAppSelector } from '../../../hooks/store'
 
-const FIELDS: typeFormConfig = {
+const FIELDS: TypeFormConfig = {
   email: { label: 'почта', value: '' },
   login: { label: 'логин', value: '' },
   first_name: { label: 'имя', value: '' },
@@ -20,8 +18,8 @@ const FIELDS: typeFormConfig = {
 }
 
 export const RegisterPage: React.FC = () => {
-  const isAuth = useSelector((state: RootState) => state.isAuth)
-  const dispatch = useDispatch<AppDispatch>()
+  const isAuth = useAppSelector(state => state.isAuth)
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const submit = (values: Record<string, string>) => {
@@ -48,7 +46,7 @@ export const RegisterPage: React.FC = () => {
         <Typography>регистрация</Typography>
         <Form
           config={FIELDS}
-          buttonLabel="зарегестрироваться"
+          buttonLabel="зарегистрироваться"
           onSubmit={submit}></Form>
         <Button variant="text" onClick={redirect}>
           войти

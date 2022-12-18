@@ -1,23 +1,21 @@
 import React from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import { Button, Container, Box, Typography } from '@mui/material'
-import { RootState } from '../../../store/rootReducer'
 import { ROUTS } from '../../../routs/routsList'
 
-import { Form, typeFormConfig } from '../../common/form'
-import { AppDispatch } from '../../../store'
+import { Form, TypeFormConfig } from '../../common/form'
 import { login } from './authSlice'
 import { typeSignin } from '../../../api/APIAuth'
+import { useAppDispatch, useAppSelector } from '../../../hooks/store'
 
-const FIELDS: typeFormConfig = {
+const FIELDS: TypeFormConfig = {
   login: { label: 'логин', value: '' },
   password: { label: 'пароль', value: '' },
 }
 
 export const LoginPage: React.FC = () => {
-  const isAuth = useSelector((state: RootState) => state.isAuth)
-  const dispatch = useDispatch<AppDispatch>()
+  const isAuth = useAppSelector(state => state.isAuth)
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const submit = (values: Record<string, string>) => {
@@ -44,7 +42,7 @@ export const LoginPage: React.FC = () => {
         <Typography>вход</Typography>
         <Form config={FIELDS} buttonLabel="войти" onSubmit={submit}></Form>
         <Button variant="text" onClick={redirect}>
-          зарегестрироваться
+          зарегистрироваться
         </Button>
       </Box>
     </Container>
