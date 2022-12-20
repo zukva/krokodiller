@@ -7,6 +7,7 @@ import { TypeFormConfig, Form } from '../../common/form'
 import { typeSignup } from '../../../api/APIAuth'
 import { ROUTS } from '../../../routs/routsList'
 import { useAppDispatch, useAppSelector } from '../../../hooks/store'
+import { Header } from '../../Header/Header'
 
 const FIELDS: TypeFormConfig = {
   email: { label: 'почта', value: '' },
@@ -32,6 +33,7 @@ export const RegisterPage: React.FC = () => {
 
   return (
     <Container maxWidth="sm">
+      <Header />
       {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
       <Box
         sx={{

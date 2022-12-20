@@ -18,7 +18,6 @@ function App() {
 
   return (
     <div>
-      <CssBaseline />
       <Preloader />
       <MainRouter />
     </div>

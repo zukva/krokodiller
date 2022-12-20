@@ -7,6 +7,7 @@ import { Form, TypeFormConfig } from '../../common/form'
 import { login } from './authSlice'
 import { typeSignin } from '../../../api/APIAuth'
 import { useAppDispatch, useAppSelector } from '../../../hooks/store'
+import { Header } from '../../Header/Header'
 
 const FIELDS: TypeFormConfig = {
   login: { label: 'логин', value: '' },
@@ -28,6 +29,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <Container maxWidth="sm">
+      <Header />
       {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
       <Box
         sx={{
