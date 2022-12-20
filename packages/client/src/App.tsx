@@ -5,8 +5,8 @@ import { getUser } from './components/pages/profile/profileSlice'
 import { Preloader } from './components/common/preloader'
 import { MainRouter } from './routs/MainRouter'
 
-import { CssBaseline } from '@mui/material'
 import { useAppDispatch } from './hooks/store'
+import './index.css'
 
 function App() {
   const dispatch = useAppDispatch()
