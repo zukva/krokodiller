@@ -9,6 +9,7 @@ import { Form, typeFormConfig } from '../../common/form'
 import { AppDispatch } from '../../../store'
 import { login } from './authSlice'
 import { typeSignin } from '../../../api/APIAuth'
+import { Header } from '../../Header/Header'
 
 const FIELDS: typeFormConfig = {
   login: { label: 'логин', value: '' },
@@ -30,6 +31,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <Container maxWidth="sm">
+      <Header />
       {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
       <Box
         sx={{

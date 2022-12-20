@@ -7,7 +7,6 @@ import { Preloader } from './components/common/preloader'
 import { MainRouter } from '../src/routs/MainRouter'
 
 import { AppDispatch } from './store'
-import { CssBaseline } from '@mui/material'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -19,9 +18,7 @@ function App() {
 
   return (
     <div>
-      <CssBaseline />
       <Preloader />
-      Вот тут будет жить ваше приложение :)
       <MainRouter />
     </div>
   )
