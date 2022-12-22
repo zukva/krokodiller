@@ -1,11 +1,42 @@
-import { configureStore, AnyAction } from '@reduxjs/toolkit';
-import { ThunkAction } from 'redux-thunk'
+import {
+  AnyAction,
+  configureStore,
+  Dispatch,
+  Middleware,
+  PreloadedState,
+  Reducer,
+  StateFromReducersMapObject,
+  ThunkAction,
+} from '@reduxjs/toolkit'
+import { RouterState } from 'redux-first-history'
 
-import rootReducer, { RootState } from './rootReducer'
+import makeRootReducer, { initServerReducer } from './rootReducer'
 
-export const store = configureStore({
-  reducer: rootReducer
-})
+export const configureServerStore = () =>
+  configureStore({
+    reducer: initServerReducer,
+  })
 
-export type AppDispatch = typeof store.dispatch;
-export type AppThunk = ThunkAction<void, RootState, undefined, AnyAction>;
+export type InitState = StateFromReducersMapObject<typeof initServerReducer>
+
+export const configureClientStore = (
+  preloadedState: PreloadedState<InitState>,
+  routerMiddleware: Middleware<
+    Record<string, unknown>,
+    any,
+    Dispatch<AnyAction>
+  >,
+  routerReducer: Reducer<RouterState>
+) =>
+  configureStore({
+    reducer: makeRootReducer({ router: routerReducer }),
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(routerMiddleware),
+    devTools: true,
+    preloadedState,
+  })
+
+type AppStore = ReturnType<typeof configureClientStore>
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
+export type AppThunk = ThunkAction<void, RootState, undefined, AnyAction>

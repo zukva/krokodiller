@@ -1,1 +1,1 @@
-export { CanvasHolder } from './canvas-holder';
+export { CanvasHolder } from './canvas-holder'

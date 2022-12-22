@@ -13,9 +13,9 @@ global.fetch = jest.fn(() =>
   Promise.resolve({ json: () => Promise.resolve('hey') })
 )
 
-test('Example test', async () => {
+test.skip('Example test', async () => {
   const mockStore = configureStore([thunk])
-  console.log(Provider);
+  console.log(Provider)
   render(
     <Provider store={mockStore({})}>
       <App />

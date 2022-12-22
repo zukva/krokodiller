@@ -1,24 +1,24 @@
-import { HTTPTransport } from "../services/HTTPTransport";
+import { HTTPTransport } from '../services/HTTPTransport'
 
 export type typeSignup = {
-  first_name: string,
-  second_name: string,
-  login: string,
-  email: string,
-  password: string,
-  phone: string,
+  first_name: string
+  second_name: string
+  login: string
+  email: string
+  password: string
+  phone: string
 }
 
 export type typeSignin = {
-  login: string,
-  password: string,
+  login: string
+  password: string
 }
 
 class APIAuth {
-  private http: HTTPTransport;
+  private http: HTTPTransport
 
   constructor() {
-    this.http = new HTTPTransport('/auth');
+    this.http = new HTTPTransport('/auth')
   }
 
   public signup(data: typeSignup) {
@@ -38,4 +38,4 @@ class APIAuth {
   }
 }
 
-export default new APIAuth();
+export default new APIAuth()
