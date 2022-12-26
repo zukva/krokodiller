@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction'
 
-import APIAuth, { typeSignin, typeSignup } from '../../../api/APIAuth'
-import { AppThunk, AppDispatch } from '../../../store'
+import APIAuth from '../../../api/APIAuth'
+import { AppThunk } from '../../../store'
 import { setIsLoading } from '../../common/preloader/loadingSlice'
 import { getUser } from '../profile/profileSlice'
+import {ApiTypes} from '../../../types';
 
 type typeAuthState = boolean
 
@@ -21,10 +22,10 @@ const authSlice = createSlice({
 })
 
 export const login =
-  (data: typeSignin): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (data: ApiTypes.SignInData): AppThunk =>
+  (dispatch) => {
     dispatch(setIsLoading(true))
-    return APIAuth.signin(data)
+    return APIAuth.signIn(data)
       .then(() => {
         dispatch(getUser())
       })
@@ -35,10 +36,10 @@ export const login =
   }
 
 export const register =
-  (data: typeSignup): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (data: ApiTypes.SignUpData): AppThunk =>
+  (dispatch) => {
     dispatch(setIsLoading(true))
-    return APIAuth.signup(data)
+    return APIAuth.signUp(data)
       .then(() => {
         dispatch(getUser())
       })
@@ -48,7 +49,7 @@ export const register =
       })
   }
 
-export const logout = (): AppThunk => (dispatch: AppDispatch) => {
+export const logout = (): AppThunk => (dispatch) => {
   dispatch(setIsLoading(true))
   return APIAuth.logout()
     .then(() => {

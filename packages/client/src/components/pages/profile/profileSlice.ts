@@ -2,42 +2,36 @@ import { createSlice } from '@reduxjs/toolkit'
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction'
 
 import APIAuth from '../../../api/APIAuth'
-import { AppThunk, AppDispatch } from '../../../store'
+import { AppThunk } from '../../../store'
 import { setIsLoading } from '../../common/preloader/loadingSlice'
 import { setIsAuth } from '../login/authSlice'
+import { getUserTheme } from '../../../store/theme'
+import {ApiTypes} from '../../../types'
 
-export type typeProfileState = {
-  id: string
-  first_name: string
-  second_name: string
-  display_name: string
-  login: string
-  email: string
-  phone: string
-  avatar: string
-}
+export type ProfileState = ApiTypes.UserInfo;
 
-const initialState = {} as typeProfileState
+const initialState = {} as ProfileState
 
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
     setProfile(
-      state: typeProfileState,
-      action: PayloadAction<typeProfileState>
+      state: ProfileState,
+      action: PayloadAction<ProfileState>
     ) {
       return action.payload
     },
   },
 })
 
-export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
+export const getUser = (): AppThunk => (dispatch) => {
   dispatch(setIsLoading(true))
   return APIAuth.getUser()
-    .then(({ data }) => {
+    .then((data) => {
       dispatch(setProfile(data))
       dispatch(setIsAuth(true))
+      dispatch(getUserTheme());
     })
     .catch(err => {
       console.log(err)

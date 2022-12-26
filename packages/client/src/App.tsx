@@ -1,15 +1,18 @@
 import React from 'react'
 import { useEffect } from 'react'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 
 import { getUser } from './components/pages/profile/profileSlice'
 import { Preloader } from './components/common/preloader'
-import { MainRouter } from './routs/MainRouter'
+import { MainRouter } from './routes/MainRouter'
 
-import { CssBaseline } from '@mui/material'
-import { useAppDispatch } from './hooks/store'
+import { useAppDispatch, useAppSelector } from './hooks/store'
+import { themes } from './config/themes'
+import { themeSelector } from './store/theme'
 
 function App() {
   const dispatch = useAppDispatch()
+  const theme = useAppSelector(themeSelector);
 
   // get data from local server
   useEffect(() => {
@@ -17,11 +20,11 @@ function App() {
   }, [])
 
   return (
-    <div>
+    <ThemeProvider theme={themes[theme]}>
       <CssBaseline />
       <Preloader />
       <MainRouter />
-    </div>
+    </ThemeProvider>
   )
 }
 
