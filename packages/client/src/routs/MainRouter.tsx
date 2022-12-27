@@ -8,7 +8,7 @@ import { RegisterPage } from '../components/pages/register/registerPage'
 import { LeaderBoardPage } from '../components/pages/leaderBoardPage/leaderBoardPage'
 import { ForumPage } from '../components/pages/forumPage/forumPage'
 import { ProfilePage } from '../components/pages/profile/profile'
-import { GamePage } from '../components/pages/gamePage/gamePage'
+import GamePage from '../components/pages/game'
 import ProtectedRoute from '../HOC/ProtectedRout'
 
 export const MainRouter: React.FC = () => {
