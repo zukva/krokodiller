@@ -1,6 +1,7 @@
 import {
   AnyAction,
   configureStore,
+  createAsyncThunk,
   Dispatch,
   Middleware,
   PreloadedState,
@@ -9,7 +10,7 @@ import {
 } from '@reduxjs/toolkit'
 import { RouterState } from 'redux-first-history'
 
-import makeRootReducer, { initServerReducer } from './rootReducer'
+import makeRootReducerWithRouter, { initServerReducer } from './rootReducer'
 
 export const configureServerStore = () =>
   configureStore({
@@ -21,15 +22,11 @@ export type InitState = ReturnType<ServerAppStore['getState']>
 
 export const configureClientStore = (
   preloadedState: PreloadedState<InitState>,
-  routerMiddleware: Middleware<
-    Record<string, unknown>,
-    any,
-    Dispatch<AnyAction>
-  >,
+  routerMiddleware: Middleware<any, any, Dispatch<AnyAction>>,
   routerReducer: Reducer<RouterState>
 ) =>
   configureStore({
-    reducer: makeRootReducer({ router: routerReducer }),
+    reducer: makeRootReducerWithRouter(routerReducer),
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(routerMiddleware),
     devTools: true,
@@ -39,4 +36,3 @@ export const configureClientStore = (
 type AppStore = ReturnType<typeof configureClientStore>
 export type RootState = ReturnType<AppStore['getState']>
 export type AppDispatch = AppStore['dispatch']
-export type AppThunk = ThunkAction<void, RootState, undefined, AnyAction>

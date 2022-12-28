@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '../index'
 import { Themes } from '../../enums/themes'
 import ThemeAPI from '../../api/ThemeAPI'
 import getUserDevice from '../../utils/getUserDevice'
+import { createAppAsyncThunk } from '../utils'
 
 type ThemeState = {
   name: Themes
@@ -13,14 +14,18 @@ const initialState = {
   name: Themes.LightTheme,
 } as ThemeState
 
-export const setUserTheme = createAsyncThunk(
+export const setUserTheme = createAppAsyncThunk(
   'theme/setUserTheme',
   async (theme: Themes, { dispatch, getState }) => {
-    const state = getState() as RootState
+    const state = getState()
 
     dispatch(setTheme(theme))
 
-    const { id } = state.profile
+    const id = state.auth?.userInfo?.id
+
+    if (!id) {
+      return;
+    }
 
     const data = {
       userId: id,
@@ -36,12 +41,16 @@ export const setUserTheme = createAsyncThunk(
   }
 )
 
-export const getUserTheme = createAsyncThunk(
+export const getUserTheme = createAppAsyncThunk(
   'theme/getUserTheme',
   async (_, { dispatch, getState }) => {
-    const state = getState() as RootState
+    const state = getState()
 
-    const { id } = state.profile
+    const id = state.auth?.userInfo?.id
+
+    if (!id) {
+      return;
+    }
 
     const data = {
       userId: id,
@@ -50,7 +59,7 @@ export const getUserTheme = createAsyncThunk(
 
     try {
       const { theme } = await ThemeAPI.getUserTheme(data)
-      dispatch(setTheme(theme));
+      dispatch(setTheme(theme))
     } catch (err) {
       console.log(err)
     }

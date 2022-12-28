@@ -18,7 +18,11 @@ class UserThemeAPI {
     }
   }
 
-  public static find = async (request: Request, response: Response, next: NextFunction) => {
+  public static find = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
     const { query } = request
 
     const founded = await userThemeService.find(query)
@@ -26,7 +30,7 @@ class UserThemeAPI {
     if (founded) {
       response.json({ theme: founded.theme })
     } else {
-      next(new NotFoundException('Theme'));
+      next(new NotFoundException('Theme'))
     }
   }
 }

@@ -9,7 +9,12 @@ import errorMiddleware from './middlewares/error.middleware'
 
 const app = express()
 app
-  .use(cors({ credentials: true, origin: `http://localhost:${process.env.CLIENT_PORT}` }))
+  .use(
+    cors({
+      credentials: true,
+      origin: `http://localhost:${process.env.CLIENT_PORT}`,
+    })
+  )
   .use(express.json())
   .disable('x-powered-by')
   // .enable('trust proxy')

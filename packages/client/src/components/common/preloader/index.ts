@@ -1,1 +1,1 @@
-export { Preloader } from './Preloader'
+export { default } from './Preloader'
