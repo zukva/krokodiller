@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ROUTS } from '../../../routs/routsList'
+import { RoutesList } from '../../../routes/routesList'
 import { Link } from '../../common/link'
 
 export const StartPage: React.FC = () => {
@@ -8,22 +8,22 @@ export const StartPage: React.FC = () => {
     <div>
       тут стартовый лендинг
       <p>
-        <Link to={ROUTS.LOGIN_PAGE}>LOGIN_PAGE</Link>
+        <Link to={RoutesList.LoginPage}>LOGIN_PAGE</Link>
       </p>
       <p>
-        <Link to={ROUTS.REGISTER_PAGE}>REGISTER_PAGE</Link>
+        <Link to={RoutesList.RegisterPage}>REGISTER_PAGE</Link>
       </p>
       <p>
-        <Link to={ROUTS.PROFILE_PAGE}>PROFILE_PAGE</Link>
+        <Link to={RoutesList.ProfilePage}>PROFILE_PAGE</Link>
       </p>
       <p>
-        <Link to={ROUTS.LEADERBOARD_PAGE}>LEADERBOARD_PAGE</Link>
+        <Link to={RoutesList.LeaderboardPage}>LEADERBOARD_PAGE</Link>
       </p>
       <p>
-        <Link to={ROUTS.GAME_PAGE}>GAME_PAGE</Link>
+        <Link to={RoutesList.GamePage}>GAME_PAGE</Link>
       </p>
       <p>
-        <Link to={ROUTS.FORUM_PAGE}>FORUM_PAG</Link>
+        <Link to={RoutesList.ForumPage}>FORUM_PAG</Link>
       </p>
     </div>
   )

@@ -4,9 +4,9 @@ import { Container, Box, Typography, Button } from '@mui/material'
 
 import { register } from '../login/authSlice'
 import { TypeFormConfig, Form } from '../../common/form'
-import { typeSignup } from '../../../api/APIAuth'
-import { ROUTS } from '../../../routs/routsList'
+import { RoutesList } from '../../../routes/routesList'
 import { useAppDispatch, useAppSelector } from '../../../hooks/store'
+import {ApiTypes} from '../../../types'
 
 const FIELDS: TypeFormConfig = {
   email: { label: 'почта', value: '' },
@@ -23,16 +23,16 @@ export const RegisterPage: React.FC = () => {
   const navigate = useNavigate()
 
   const submit = (values: Record<string, string>) => {
-    dispatch(register(values as typeSignup))
+    dispatch(register(values as ApiTypes.SignUpData))
   }
 
   const redirect = () => {
-    navigate(ROUTS.LOGIN_PAGE)
+    navigate(RoutesList.LoginPage)
   }
 
   return (
     <Container maxWidth="sm">
-      {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
+      {isAuth && <Navigate to={RoutesList.ProfilePage}></Navigate>}
       <Box
         sx={{
           bgcolor: 'background.paper',

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
-import { ROUTS } from './routsList'
+import { RoutesList } from './routesList'
 import { StartPage } from '../components/pages/startPage/startPage'
 import { LoginPage } from '../components/pages/login/loginPage'
 import { RegisterPage } from '../components/pages/register/registerPage'
@@ -9,16 +9,16 @@ import { LeaderBoardPage } from '../components/pages/leaderBoardPage/leaderBoard
 import { ForumPage } from '../components/pages/forumPage/forumPage'
 import { ProfilePage } from '../components/pages/profile/profile'
 import GamePage from '../components/pages/game'
-import ProtectedRoute from '../HOC/ProtectedRout'
+import ProtectedRoute from '../HOC/ProtectedRoute'
 
 export const MainRouter: React.FC = () => {
   return (
     <ErrorBoundary>
       <Routes>
-        <Route path={ROUTS.LOGIN_PAGE} element={<LoginPage />} />
-        <Route path={ROUTS.REGISTER_PAGE} element={<RegisterPage />} />
+        <Route path={RoutesList.LoginPage} element={<LoginPage />} />
+        <Route path={RoutesList.RegisterPage} element={<RegisterPage />} />
         <Route
-          path={ROUTS.LEADERBOARD_PAGE}
+          path={RoutesList.LeaderboardPage}
           element={
             <ProtectedRoute>
               <LeaderBoardPage />
@@ -26,7 +26,7 @@ export const MainRouter: React.FC = () => {
           }
         />
         <Route
-          path={ROUTS.FORUM_PAGE}
+          path={RoutesList.ForumPage}
           element={
             <ProtectedRoute>
               <ForumPage />
@@ -35,7 +35,7 @@ export const MainRouter: React.FC = () => {
         />
 
         <Route
-          path={ROUTS.PROFILE_PAGE}
+          path={RoutesList.ProfilePage}
           element={
             <ProtectedRoute>
               <ProfilePage />
@@ -43,14 +43,14 @@ export const MainRouter: React.FC = () => {
           }
         />
         <Route
-          path={ROUTS.GAME_PAGE}
+          path={RoutesList.GamePage}
           element={
             <ProtectedRoute>
               <GamePage />
             </ProtectedRoute>
           }
         />
-        <Route path={ROUTS.START_PAGE} index element={<StartPage />} />
+        <Route path={RoutesList.StartPage} index element={<StartPage />} />
       </Routes>
     </ErrorBoundary>
   )
