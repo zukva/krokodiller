@@ -5,7 +5,6 @@ import {
   Middleware,
   PreloadedState,
   Reducer,
-  StateFromReducersMapObject,
   ThunkAction,
 } from '@reduxjs/toolkit'
 import { RouterState } from 'redux-first-history'
@@ -17,7 +16,8 @@ export const configureServerStore = () =>
     reducer: initServerReducer,
   })
 
-export type InitState = StateFromReducersMapObject<typeof initServerReducer>
+type ServerAppStore = ReturnType<typeof configureServerStore>
+export type InitState = ReturnType<ServerAppStore['getState']>
 
 export const configureClientStore = (
   preloadedState: PreloadedState<InitState>,

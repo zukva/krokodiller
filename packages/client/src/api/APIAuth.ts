@@ -1,40 +1,24 @@
-import { HTTPTransport } from '../services/HTTPTransport'
-
-export type typeSignup = {
-  first_name: string
-  second_name: string
-  login: string
-  email: string
-  password: string
-  phone: string
-}
-
-export type typeSignin = {
-  login: string
-  password: string
-}
+import { SignInData, SignUpData, SignUpResponse, UserInfo } from './types';
+import { practicumApi } from '../services/HTTPTransport'
 
 class APIAuth {
-  private http: HTTPTransport
-
-  constructor() {
-    this.http = new HTTPTransport('/auth')
+  public signUp(data: SignUpData): Promise<SignUpResponse> {
+    return practicumApi.post<SignUpData, SignUpResponse>(
+      '/auth/signup',
+      data,
+    );
   }
 
-  public signup(data: typeSignup) {
-    return this.http.post('/signup', data)
+  public signIn(data: SignInData): Promise<void> {
+    return practicumApi.post<SignInData, void>('/auth/signin', data);
   }
 
-  public signin(data: typeSignin) {
-    return this.http.post('/signin', data)
+  public logout(): Promise<void> {
+    return practicumApi.post<void, void>('/auth/logout');
   }
 
-  public getUser() {
-    return this.http.get('/user')
-  }
-
-  public logout() {
-    return this.http.post('/logout')
+  public getUser(): Promise<UserInfo> {
+    return practicumApi.get<void, UserInfo>('/auth/user');
   }
 }
 

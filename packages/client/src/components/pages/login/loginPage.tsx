@@ -1,12 +1,12 @@
 import React from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Button, Container, Box, Typography } from '@mui/material'
-import { ROUTS } from '../../../routs/routsList'
+import { RoutesList } from '../../../routes/routesList'
 
 import { Form, TypeFormConfig } from '../../common/form'
 import { login } from './authSlice'
-import { typeSignin } from '../../../api/APIAuth'
 import { useAppDispatch, useAppSelector } from '../../../hooks/store'
+import {ApiTypes} from '../../../types'
 
 const FIELDS: TypeFormConfig = {
   login: { label: 'логин', value: '' },
@@ -19,16 +19,16 @@ export const LoginPage: React.FC = () => {
   const navigate = useNavigate()
 
   const submit = (values: Record<string, string>) => {
-    dispatch(login(values as typeSignin))
+    dispatch(login(values as ApiTypes.SignInData))
   }
 
   const redirect = () => {
-    navigate(ROUTS.REGISTER_PAGE)
+    navigate(RoutesList.RegisterPage)
   }
 
   return (
     <Container maxWidth="sm">
-      {isAuth && <Navigate to={ROUTS.PROFILE_PAGE}></Navigate>}
+      {isAuth && <Navigate to={RoutesList.ProfilePage} />}
       <Box
         sx={{
           bgcolor: 'background.paper',

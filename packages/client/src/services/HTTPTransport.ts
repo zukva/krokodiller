@@ -1,33 +1,102 @@
-import axios from 'axios'
+import axios, { AxiosError, AxiosRequestConfig } from 'axios'
+import qs from 'qs'
 
-export enum Method {
-  Get = 'GET',
-  Post = 'POST',
+import { DEV_SERVER_API_PATH, PRACTICUM_API_PATH } from '../config/api'
+import { ApiTypes } from '../types'
+
+type RequestOptions = Partial<Omit<AxiosRequestConfig, 'url'>> & {
+  query?: any
+  data?: any
 }
 
-const BASE_CONFIG = {
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+enum Methods {
+  Get = 'get',
+  Post = 'post',
+  Put = 'put',
+  Delete = 'delete',
 }
 
-export class HTTPTransport {
-  static API_URL = 'https://ya-praktikum.tech/api/v2'
-  protected endpoint: string
+type FetchOptions = Omit<AxiosRequestConfig, 'method | body'>
+class Http {
+  private readonly basePath: string
+  constructor(basePath: string) {
+    this.basePath = basePath
+  }
+  private request<Result>(
+    url: string,
+    options: RequestOptions
+  ): Promise<Result> {
+    const isGet = options?.method === Methods.Get
+    const fetchUrl = `${this.basePath}${url}${
+      options?.query ? `?${qs.stringify(options?.query)}` : ''
+    }`
+    const data = options.data ? JSON.stringify(options.data) : undefined
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(options.headers ?? {}),
+    }
 
-  constructor(endpoint: string) {
-    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
+    return axios({
+      url: fetchUrl,
+      withCredentials: true,
+      ...options,
+      headers,
+      data: isGet ? undefined : data,
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.data
+        } else {
+          throw response
+        }
+      })
+      .catch((error: AxiosError<ApiTypes.BackendError>) => {
+        if (error.status === 401 && error.response) {
+          throw error.response.data.reason
+        }
+
+        throw error
+      })
   }
 
-  public get(path = '/', config = {}) {
-    return axios.get(`${this.endpoint}${path}`, { ...config, ...BASE_CONFIG })
+  public get<Query, Result>(
+    url: string,
+    query?: Query,
+    options?: FetchOptions
+  ) {
+    return this.request<Result>(url, {
+      ...options,
+      method: Methods.Get,
+      query,
+    })
   }
 
-  public post(path: string, data: any = {}, config = {}) {
-    return axios.post(`${this.endpoint}${path}`, data, {
-      ...config,
-      ...BASE_CONFIG,
+  public post<Data, Result>(url: string, data?: Data, options?: FetchOptions) {
+    return this.request<Result>(url, {
+      ...options,
+      method: Methods.Post,
+      data,
+    })
+  }
+
+  public put<Data, Result>(url: string, data?: Data, options?: FetchOptions) {
+    return this.request<Result>(url, { ...options, method: Methods.Put, data })
+  }
+
+  public delete<Data, Result>(
+    url: string,
+    data?: Data,
+    options?: FetchOptions
+  ) {
+    return this.request<Result>(url, {
+      ...options,
+      method: Methods.Delete,
+      data,
     })
   }
 }
+
+export const practicumApi = new Http(PRACTICUM_API_PATH)
+export const serverApi = new Http(DEV_SERVER_API_PATH)
+
+export default Http
