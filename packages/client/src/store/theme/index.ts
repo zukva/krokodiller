@@ -24,7 +24,7 @@ export const setUserTheme = createAppAsyncThunk(
     const id = state.auth?.userInfo?.id
 
     if (!id) {
-      return;
+      return
     }
 
     const data = {
@@ -49,7 +49,7 @@ export const getUserTheme = createAppAsyncThunk(
     const id = state.auth?.userInfo?.id
 
     if (!id) {
-      return;
+      return
     }
 
     const data = {
