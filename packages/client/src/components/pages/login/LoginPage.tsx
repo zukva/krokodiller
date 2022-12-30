@@ -1,11 +1,18 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import { RoutesList } from '../../../routes/routesList'
 
 import { Link } from '../../common/link'
 import LoginForm from './components/LoginForm'
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
+import { useAppDispatch } from '../../../hooks/store'
+import { oAuthSignIn } from '../../../store/auth'
 
 const LoginPage: FC = () => {
+  const dispatch = useAppDispatch()
+  const handleYandexAuth = useCallback(() => {
+    dispatch(oAuthSignIn())
+  }, [])
+
   return (
     <Box
       sx={{
@@ -16,7 +23,7 @@ const LoginPage: FC = () => {
       }}>
       <Box
         sx={{
-          boxShadow: 1,
+          boxShadow: 2,
           borderRadius: 4,
           display: 'flex',
           flexDirection: 'column',
@@ -32,6 +39,14 @@ const LoginPage: FC = () => {
           Вход
         </Typography>
         <LoginForm />
+        <Typography>или войти с помощью</Typography>
+        <Button
+          sx={{ my: 2, width: '500px', background: '#000' }}
+          variant="contained"
+          size="large"
+          onClick={handleYandexAuth}>
+          Войти с Яндекс ID
+        </Button>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Link to={RoutesList.RegisterPage}>
             Нет аккаунта? Зарегистрироваться

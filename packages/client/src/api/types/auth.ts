@@ -26,3 +26,16 @@ export type UserInfo = {
   phone: string
   avatar: string
 }
+
+export type OAuthData = {
+  code: string
+  redirect_uri: string
+}
+
+export type OAuthServiceIdQuery = {
+  redirect_uri: string
+}
+
+export type OAuthServiceIdResponse = {
+  service_id: string
+}

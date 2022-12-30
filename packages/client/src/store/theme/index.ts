@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { RootState } from '../index'
+import { AppDispatch, RootState } from '../index'
 import { Themes } from '../../enums/themes'
 import ThemeAPI from '../../api/ThemeAPI'
 import getUserDevice from '../../utils/getUserDevice'
@@ -65,6 +65,13 @@ export const getUserTheme = createAppAsyncThunk(
     }
   }
 )
+
+export const setInitialTheme = () => (dispatch: AppDispatch) => {
+  const isSystemDarkMode =
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  dispatch(setTheme(isSystemDarkMode ? Themes.DarkTheme : Themes.LightTheme))
+}
 
 const themeSlice = createSlice({
   name: 'theme',

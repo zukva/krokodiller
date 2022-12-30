@@ -15,7 +15,7 @@ const RegisterPage = () => {
       }}>
       <Box
         sx={{
-          boxShadow: 1,
+          boxShadow: 2,
           borderRadius: 4,
           display: 'flex',
           flexDirection: 'column',
