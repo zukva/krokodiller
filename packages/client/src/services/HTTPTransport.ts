@@ -30,7 +30,15 @@ class Http {
     const fetchUrl = `${this.basePath}${url}${
       options?.query ? `?${qs.stringify(options?.query)}` : ''
     }`
-    const data = options.data ? JSON.stringify(options.data) : undefined
+
+    let data
+
+    if (options.data instanceof FormData) {
+      data = options.data
+    } else {
+      data = JSON.stringify(options.data)
+    }
+
     const headers = {
       'Content-Type': 'application/json',
       ...(options.headers ?? {}),
@@ -51,7 +59,7 @@ class Http {
         }
       })
       .catch((error: AxiosError<ApiTypes.BackendError>) => {
-        if (error.status === 401 && error.response) {
+        if (error?.response?.data?.reason) {
           throw error.response.data.reason
         }
 

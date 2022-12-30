@@ -1,22 +1,21 @@
 import { Reducer } from '@reduxjs/toolkit'
 
-import isAuth from '../components/pages/login/authSlice'
-import isLoading from '../components/common/preloader/loadingSlice'
-import profile from '../components/pages/profile/profileSlice'
 import theme from './theme'
+import alert from './alert'
+import auth from './auth'
+import profile from './profile'
 
-const makeRootReducer = (reducers: Record<string, Reducer>) => ({
-  isLoading,
-  isAuth,
+const makeRootReducerWithRouter = (router: Reducer) => ({
   profile,
   theme,
-  ...reducers,
+  alert,
+  auth,
+  router,
 })
 
-export const initServerReducer = ({
-  isLoading,
-  isAuth,
+export const initServerReducer = {
   theme,
-})
+  alert,
+}
 
-export default makeRootReducer
+export default makeRootReducerWithRouter

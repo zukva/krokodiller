@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
 export default {
   preset: 'ts-jest',
@@ -15,4 +15,4 @@ export default {
       'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/src/tests/setup-tests.ts'],
-};
+}

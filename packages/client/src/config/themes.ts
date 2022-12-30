@@ -5,12 +5,12 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
-});
+})
 
 const lightTheme = createTheme({
   palette: {
-    mode: 'light'
-  }
+    mode: 'light',
+  },
 })
 
 export const themes: Record<Themes, Theme> = {

@@ -1,6 +1,6 @@
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
-import 'jest-canvas-mock';
+import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/extend-expect'
+import 'jest-canvas-mock'
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -14,4 +14,4 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: jest.fn(),
     dispatchEvent: jest.fn(),
   })),
-});
+})
