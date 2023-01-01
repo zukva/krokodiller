@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 import { useCanvas, useAnimation } from '../../hooks'
-import game from '../../engine/game-engine'
+import useGameContext from '../../hooks/use-game-context'
 
 type Props = {
   isAnimating: boolean
@@ -10,10 +10,11 @@ type Props = {
 
 function Ship({ isAnimating, mainShipFullHealthRef }: Props) {
   const context = useCanvas()
+  const game = useGameContext()
   const isControl = useRef<boolean>(false)
   const initialXClick = useRef<number | null>(null)
   const delta = useRef<number>(0)
-  const initialXPosition = useRef<number>(game.gameState.ship.x)
+  const initialXPosition = useRef<number>(game?.gameState.ship.x ?? 0)
 
   const animatedXPosition = useAnimation(
     0,
@@ -28,7 +29,7 @@ function Ship({ isAnimating, mainShipFullHealthRef }: Props) {
   const handleMouseMove = (event: MouseEvent) => {
     if (isControl.current && isAnimating && initialXClick.current) {
       delta.current = initialXClick.current - event.clientX
-      game.gameState.ship.setCoord(
+      game?.gameState.ship.setCoord(
         initialXPosition.current - delta.current,
         game.gameState.ship.y
       )
@@ -50,7 +51,7 @@ function Ship({ isAnimating, mainShipFullHealthRef }: Props) {
     }
   }, [isAnimating])
 
-  if (context !== null && mainShipFullHealthRef.current !== null) {
+  if (context !== null && mainShipFullHealthRef.current !== null && game) {
     context.fillStyle = 'red'
     context.drawImage(
       mainShipFullHealthRef.current,

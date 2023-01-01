@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import {isEmpty} from 'lodash'
+import { isEmpty } from 'lodash'
 import { useLocation } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from './store'
@@ -9,8 +9,8 @@ const useAuth = () => {
   const dispatch = useAppDispatch()
   const userInfo = useAppSelector(userInfoSelector)
   const location = useLocation()
-  const params = new URLSearchParams(location.search);
-  const code = params.get('code');
+  const params = new URLSearchParams(location.search)
+  const code = params.get('code')
 
   useEffect(() => {
     if (code && isEmpty(userInfo)) {

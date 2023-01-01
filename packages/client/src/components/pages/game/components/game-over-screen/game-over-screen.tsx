@@ -3,17 +3,21 @@ import { Box, IconButton, Typography } from '@mui/material'
 
 import gameCoverImg from '../../../../../assets/background-game-over.png'
 import restartButtonImg from '../../../../../assets/game-restart-button.png'
-
-import game from '../../engine/game-engine'
+import useGameContext from '../../hooks/use-game-context'
 
 type Props = {
   onGameOver: () => void
 }
 
 function GameOverScreen({ onGameOver }: Props) {
+  const game = useGameContext()
   const handleGameOver = useCallback(() => {
     onGameOver()
   }, [onGameOver])
+
+  if (!game) {
+    return null
+  }
 
   return (
     <Box

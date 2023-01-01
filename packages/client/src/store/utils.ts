@@ -1,4 +1,8 @@
-import { ActionReducerMapBuilder, AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit'
+import {
+  ActionReducerMapBuilder,
+  AsyncThunk,
+  createAsyncThunk,
+} from '@reduxjs/toolkit'
 import { AppDispatch, RootState } from './index'
 
 type ThunkApiConfig = {
@@ -14,7 +18,7 @@ type ThunkApiConfig = {
 
 export const createAppAsyncThunk = createAsyncThunk.withTypes<ThunkApiConfig>()
 
-export const addRequestExtraCases = function(
+export const addRequestExtraCases = function (
   builder: ActionReducerMapBuilder<any>,
   thunk: AsyncThunk<any, any, ThunkApiConfig>,
   storeName: string
