@@ -5,7 +5,7 @@ import {
   SignInData,
   SignUpData,
   SignUpResponse,
-  UserInfo
+  UserInfo,
 } from './types'
 import { practicumApi } from '../services/HTTPTransport'
 
@@ -30,8 +30,13 @@ class AuthAPI {
     return practicumApi.post<OAuthData, void>('/oauth/yandex', data)
   }
 
-  public oauthGetServiceId(query: OAuthServiceIdQuery): Promise<OAuthServiceIdResponse> {
-    return practicumApi.get<OAuthServiceIdQuery, OAuthServiceIdResponse>('/oauth/yandex/service-id', query)
+  public oauthGetServiceId(
+    query: OAuthServiceIdQuery
+  ): Promise<OAuthServiceIdResponse> {
+    return practicumApi.get<OAuthServiceIdQuery, OAuthServiceIdResponse>(
+      '/oauth/yandex/service-id',
+      query
+    )
   }
 }
 

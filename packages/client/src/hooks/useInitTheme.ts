@@ -7,14 +7,16 @@ const useInitTheme = () => {
   const dispatch = useAppDispatch()
 
   if (isServerSide()) {
-    return;
+    return
   }
 
-  const initTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? Themes.DarkTheme
-    : Themes.LightTheme
+  const initTheme =
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? Themes.DarkTheme
+      : Themes.LightTheme
 
-  dispatch(setTheme(initTheme));
+  dispatch(setTheme(initTheme))
 }
 
-export default useInitTheme;
+export default useInitTheme

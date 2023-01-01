@@ -1,3 +1,3 @@
-const isServerSide = () => typeof window === 'undefined';
+const isServerSide = () => typeof window === 'undefined'
 
-export default isServerSide;
+export default isServerSide

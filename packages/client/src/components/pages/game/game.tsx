@@ -5,7 +5,6 @@ import Canvas from './components/canvas'
 import Enemies from './components/enemies'
 import Ship from './components/ship'
 import ShipBullets from './components/ship-bullets'
-import game from './engine/game-engine'
 import CollisionChecker from './components/collision-checker'
 import EnemiesBullets from './components/enemies-bullets'
 import Images from './components/images'
@@ -16,30 +15,33 @@ import StartScreen from './components/start-screen'
 import toggleFullscreen from '../../../utils/fullscreen-toggle'
 import Score from './components/score'
 import GameOverScreen from './components/game-over-screen'
+import useGameContext from './hooks/use-game-context'
+import MusicSwitcher from './components/music-switcher'
 
 const { canvas } = GAME_SETTINGS
 
 function Game() {
   const refs = usePreloadedImagesRefs()
   const gameRef = useRef<HTMLDivElement>(null)
+  const game = useGameContext()
   const [isStarted, setIsStarted] = useState<boolean>(false)
   const [isNewGame, setIsNewGame] = useState<boolean>(true)
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
 
   const handleStopGame = () => {
     setIsStarted(false)
-    game.stop()
+    game?.stop()
   }
 
   const handleRestartGame = () => {
     setIsStarted(true)
-    game.restart()
+    game?.restart()
   }
 
   const handleStartGame = () => {
     setIsStarted(true)
     setIsNewGame(false)
-    game.start()
+    game?.start()
   }
 
   const handleClickFullScreenBtn = () => {
@@ -59,6 +61,7 @@ function Game() {
           sx={{
             position: 'relative',
           }}>
+          <MusicSwitcher muteOnInit={GAME_SETTINGS.muteOnInit} />
           <Button
             sx={{
               position: 'fixed',
