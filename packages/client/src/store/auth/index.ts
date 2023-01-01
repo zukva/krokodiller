@@ -2,38 +2,31 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { push } from 'redux-first-history'
 
 import authAPI from '../../api/AuthAPI'
-import { ApiTypes, RequestState } from '../../types'
+import { ApiTypes, RequestStore } from '../../types'
 import { setAlertError } from '../alert'
 import { RootState } from '../index'
-import { createAppAsyncThunk } from '../utils'
+import { addRequestExtraCases, createAppAsyncThunk } from '../utils'
 import { RoutesList } from '../../routes/routesList'
 import { isUnprotectedPathname } from './utils'
 import { getUserTheme } from '../theme'
+import { INIT_REQUEST_STATE } from '../consts'
+import { DEV_CLIENT_PATH } from '../../config/api'
 
 type AuthState = {
-  signUpRequest: {
-    loading: RequestState
-    payload?: ApiTypes.SignUpResponse
-  }
-  signInRequest: {
-    loading: RequestState
-  }
+  signUpRequest: RequestStore<ApiTypes.SignUpResponse>
+  signInRequest: RequestStore
   userInfo: Partial<ApiTypes.UserInfo>
-  authUser: {
-    loading: RequestState
-  }
+  authUserRequest: RequestStore
+  oAuthSignIn: RequestStore
 }
 
 const initialState = {
-  signUpRequest: {
-    loading: 'idle',
-  },
-  signInRequest: {
-    loading: 'idle',
-  },
-  authUser: {
-    loading: 'idle',
-  },
+  signUpRequest: INIT_REQUEST_STATE,
+  signInRequest: INIT_REQUEST_STATE,
+  authUserRequest: INIT_REQUEST_STATE,
+  oAuthSignIn: INIT_REQUEST_STATE,
+  authWithOAuth: INIT_REQUEST_STATE,
+  userInfo: {},
 } as AuthState
 
 export const authUser = createAppAsyncThunk(
@@ -100,6 +93,34 @@ export const logout = createAppAsyncThunk(
   }
 )
 
+export const oAuthSignIn = createAppAsyncThunk(
+  'auth/oAuthSignIn',
+  async (_, {dispatch}) => {
+    try {
+      const res = await authAPI.oauthGetServiceId({redirect_uri: DEV_CLIENT_PATH})
+      const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${res.service_id}&redirect_uri=${DEV_CLIENT_PATH}`
+      dispatch(push(url))
+    } catch (error: any) {
+      dispatch(setAlertError(error))
+    }
+  }
+)
+
+export const authWithOAuth = createAppAsyncThunk(
+  'auth/authWithOAuth',
+  async (code: string, {dispatch}) => {
+    try {
+      await authAPI.oauthSignIn({
+        code,
+        redirect_uri: DEV_CLIENT_PATH
+      })
+      dispatch(authUser())
+    } catch(error: any) {
+      dispatch(setAlertError(error))
+    }
+  }
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -108,36 +129,18 @@ const authSlice = createSlice({
       state.userInfo = action.payload
     },
   },
-  extraReducers: builder => {
-    builder
-      .addCase(signUpUser.fulfilled, (state, action) => {
-        state.signUpRequest.payload = action.payload
-        state.signUpRequest.loading = 'succeeded'
-      })
-      .addCase(signUpUser.pending, state => {
-        state.signUpRequest.loading = 'pending'
-      })
-      .addCase(signInUser.fulfilled, state => {
-        state.signInRequest.loading = 'succeeded'
-      })
-      .addCase(signInUser.pending, state => {
-        state.signInRequest.loading = 'pending'
-      })
-      .addCase(authUser.fulfilled, state => {
-        state.authUser.loading = 'succeeded'
-      })
-      .addCase(authUser.pending, state => {
-        state.authUser.loading = 'pending'
-      })
-      .addCase(authUser.rejected, state => {
-        state.authUser.loading = 'failed'
-      })
+  extraReducers: (builder) => {
+    addRequestExtraCases(builder, authUser, 'authUserRequest');
+    addRequestExtraCases(builder, signUpUser, 'signUpRequest');
+    addRequestExtraCases(builder, signInUser, 'signInRequest');
+    addRequestExtraCases(builder, oAuthSignIn, 'oAuthSignIn');
+    addRequestExtraCases(builder, authWithOAuth, 'authWithOAuth');
   },
 })
 
 export const userInfoSelector = (state: RootState) => state.auth?.userInfo
 export const isAuthUserPendingSelector = (state: RootState) => {
-  const status = state.auth?.authUser?.loading
+  const status = state.auth?.authUserRequest?.loading
   return status === 'idle' || status === 'pending'
 }
 
