@@ -7,31 +7,31 @@ import {
   SignUpResponse,
   UserInfo
 } from './types'
-import { practicumApi } from '../services/HTTPTransport'
+import { serverApi } from '../services/HTTPTransport'
 
 class AuthAPI {
   public signUp(data: SignUpData): Promise<SignUpResponse> {
-    return practicumApi.post<SignUpData, SignUpResponse>('/auth/signup', data)
+    return serverApi.post<SignUpData, SignUpResponse>('/p-api/auth/signup', data)
   }
 
   public signIn(data: SignInData): Promise<void> {
-    return practicumApi.post<SignInData, void>('/auth/signin', data)
+    return serverApi.post<SignInData, void>('/p-api/auth/signin', data)
   }
 
   public logout(): Promise<void> {
-    return practicumApi.post<void, void>('/auth/logout')
+    return serverApi.post<void, void>('/p-api/auth/logout')
   }
 
   public getUser(): Promise<UserInfo> {
-    return practicumApi.get<void, UserInfo>('/auth/user')
+    return serverApi.get<void, UserInfo>('/p-api/auth/user')
   }
 
   public oauthSignIn(data: OAuthData): Promise<void> {
-    return practicumApi.post<OAuthData, void>('/oauth/yandex', data)
+    return serverApi.post<OAuthData, void>('/p-api/oauth/yandex', data)
   }
 
   public oauthGetServiceId(query: OAuthServiceIdQuery): Promise<OAuthServiceIdResponse> {
-    return practicumApi.get<OAuthServiceIdQuery, OAuthServiceIdResponse>('/oauth/yandex/service-id', query)
+    return serverApi.get<OAuthServiceIdQuery, OAuthServiceIdResponse>('/p-api/oauth/yandex/service-id', query)
   }
 }
 

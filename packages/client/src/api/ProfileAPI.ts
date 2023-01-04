@@ -1,17 +1,17 @@
 import { PasswordData, ProfileData, UserInfo } from './types'
-import { practicumApi } from '../services/HTTPTransport'
+import { serverApi } from '../services/HTTPTransport'
 
 class ProfileAPI {
   changeProfile(data: ProfileData): Promise<UserInfo> {
-    return practicumApi.put<ProfileData, UserInfo>('/user/profile', data)
+    return serverApi.put<ProfileData, UserInfo>('/p-api/user/profile', data)
   }
 
   changePassword(data: PasswordData): Promise<void> {
-    return practicumApi.put<PasswordData, void>('/user/password', data)
+    return serverApi.put<PasswordData, void>('/p-api/user/password', data)
   }
 
   changeAvatar(data: FormData): Promise<UserInfo> {
-    return practicumApi.put<FormData, UserInfo>('/user/profile/avatar', data, {
+    return serverApi.put<FormData, UserInfo>('/p-api/user/profile/avatar', data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   }
