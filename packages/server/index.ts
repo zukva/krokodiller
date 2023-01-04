@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
+import morgan from 'morgan'
 dotenv.config()
 
 import express from 'express'
@@ -20,7 +21,7 @@ app
   // .enable('trust proxy')
   // .set('query parser', queryParser)
   // .use(cookieParser())
-  // .use(logger)
+  .use(morgan('combined'))
   .use(router)
   .use(errorMiddleware)
 // .use(notFound);

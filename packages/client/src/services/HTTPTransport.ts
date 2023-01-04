@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 
-import { DEV_SERVER_API_PATH, PRACTICUM_API_PATH } from '../config/api'
+import { DEV_SERVER_API_PATH } from '../config/api'
 import { ApiTypes } from '../types'
 
 type RequestOptions = Partial<Omit<AxiosRequestConfig, 'url'>> & {
@@ -104,7 +104,6 @@ class Http {
   }
 }
 
-export const practicumApi = new Http(PRACTICUM_API_PATH)
 export const serverApi = new Http(DEV_SERVER_API_PATH)
 
 export default Http
