@@ -19,6 +19,8 @@ import { PRACTICUM_RESOURCES_PATH } from '../../../../config/api'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/store'
 import { logout, userInfoSelector } from '../../../../store/auth'
 import { useCallback } from 'react'
+import ThemeSwitcher from '../../../common/theme-switcher'
+import { themeSelector } from '../../../../store/theme'
 
 
 const pages = [ { pageName: 'Play', route: RoutesList.GamePage }, {
@@ -51,26 +53,30 @@ function Header() {
     dispatch(logout())
   }, [])
 
+  const theme = useAppSelector(themeSelector)
+
+
   return (
-    <AppBar position='static' sx={ { background: '#414e5a' } }>
+    <AppBar position='static' sx={ { background: '#414e5a' } } color='primary' enableColorOnDark>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <Box sx={ { display: { xs: 'none', md: 'flex' }, mr: 1, width: 80, height: 80, padding: 2 } }>
+          <Box sx={ { display: { xs: 'none', lg: 'flex' }, mr: 1, width: 60, height: 60, padding: 2 } }>
             <img src={ ship } alt={ 'logo' } />
           </Box>
 
           <Typography
             variant='h6'
-            noWrap
+
             component='a'
             href='/'
             sx={ {
               mr: 4,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', lg: 'flex' },
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none'
+              textDecoration: 'none',
+              whiteSpace: 'break-world'
             } }
           >
             Space Runner
@@ -81,7 +87,7 @@ function Header() {
               href='/'
               sx={ {
                 mr: 4,
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: 'none', lg: 'flex' },
                 fontWeight: 400,
                 fontSize: 14,
                 fontFamily: 'italic',
@@ -94,7 +100,7 @@ function Header() {
             </Typography>
           </Typography>
 
-          <Box sx={ { flexGrow: 1, display: { xs: 'flex', md: 'none' } } }>
+          <Box sx={ { flexGrow: 1, display: { xs: 'flex', lg: 'none' } } }>
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -120,7 +126,7 @@ function Header() {
               open={ Boolean(anchorElNav) }
               onClose={ handleCloseNavMenu }
               sx={ {
-                display: { xs: 'block', md: 'none' }
+                display: { xs: 'block', lg: 'none' }
               } }
             >
               { pages.map((page) => (
@@ -133,25 +139,31 @@ function Header() {
             </Menu>
           </Box>
           {/* DESKTOP MENU*/ }
-          <Box sx={ { display: { xs: 'flex', md: 'none' }, mr: 1, width: 80, height: 80, padding: 2 } }>
+          <Box sx={ { display: { xs: 'none', md: 'flex', lg: 'none' }, mr: 1, width: 80, height: 80, padding: 2 } }>
             <img src={ ship } alt={ 'logo' } />
           </Box>
+          <Box sx={ {
+            display: 'flex',
+            flexWrap: 'wrap',
+          } }>
+            <Typography
+              variant='h6'
+              component='a'
+              noWrap
+              href='/'
+              sx={ {
+                mr: 4,
+                display: { xs: 'flex', lg: 'none' },
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none'
 
-          <Typography
-            variant='h6'
-            noWrap
-            component='a'
-            href='/'
-            sx={ {
-              mr: 4,
-              display: { xs: 'flex', md: 'none' },
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            } }
-          >
-            Space Runner
+              } }
+            >
+              Space Runner
+
+            </Typography>
             <Typography
               variant='h6'
               noWrap
@@ -159,7 +171,7 @@ function Header() {
               href='/'
               sx={ {
                 mr: 4,
-                display: { xs: 'flex', md: 'none' },
+                display: { xs: 'flex', lg: 'none' },
                 fontWeight: 400,
                 fontSize: 14,
                 fontFamily: 'italic',
@@ -170,14 +182,15 @@ function Header() {
             >
               by Zukva
             </Typography>
-          </Typography>
-          <Box sx={ { flexGrow: 1, gap: 5, display: { xs: 'none', md: 'flex' } } }>
+          </Box>
+
+          <Box sx={ { flexGrow: 1, gap: 5, display: { xs: 'none', lg: 'flex' } } }>
             <MenuItem key={ 'Play' } onClick={ handleCloseNavMenu }
                       sx={ {
                         borderWidth: 1,
                         borderStyle: 'solid',
                         borderColor: 'white',
-                        borderRadius: 3,
+                        borderRadius: '10px',
                         backgroundColor: 'rgba(255,255,255,0.07)'
                       } }>
 
@@ -200,7 +213,7 @@ function Header() {
                           sx={ {
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'lightgray',
+                            color: 'inherit',
                             textDecoration: 'none'
                           } }>Leader board</Typography>
 
@@ -212,67 +225,82 @@ function Header() {
                           sx={ {
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'lightgray',
+                            color: 'inherit',
                             textDecoration: 'none'
                           } }>Forum</Typography>
             </MenuItem>
-
+            <ThemeSwitcher />
           </Box>
 
-          <Box sx={ { flexGrow: 0 } }>
-            <Tooltip title='Open settings'>
-              <IconButton onClick={ handleOpenUserMenu } sx={ { p: 0 } }>
-                <Avatar alt='Remy Sharp' src={ `${ PRACTICUM_RESOURCES_PATH }/${ userInfo?.avatar }` }>
-                  <Person fill='true' fontSize='medium' />
-                </Avatar>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={ { mt: '45px' } }
-              id='menu-appbar'
-              anchorEl={ anchorElUser }
-              anchorOrigin={ {
-                vertical: 'top',
-                horizontal: 'right'
-              } }
-              keepMounted
-              transformOrigin={ {
-                vertical: 'top',
-                horizontal: 'right'
-              } }
-              open={ Boolean(anchorElUser) }
-              onClose={ handleCloseUserMenu }
-            >
+          { !userInfo ?
+            <Box sx={ { flexGrow: 0 } }>
+              <Button color={ 'primary' }>
+                <Typography textAlign='center'
+                            component={ 'a' }
+                            href={ RoutesList.LoginPage }
+                            sx={ {
+                              fontWeight: 700,
+                              letterSpacing: '.1rem',
+                              color: 'white',
+                              textDecoration: 'none'
+                            } }>Login</Typography>
+              </Button>
+            </Box> :
 
-              <MenuItem key='profile' onClick={ handleCloseUserMenu }>
+            <Box sx={ { flexGrow: 0 } }>
+              <Tooltip title='Open settings'>
+                <IconButton onClick={ handleOpenUserMenu } sx={ { p: 0 } }>
+                  <Avatar alt='Remy Sharp' src={ `${ PRACTICUM_RESOURCES_PATH }/${ userInfo?.avatar }` }>
+                    <Person fill='true' fontSize='medium' />
+                  </Avatar>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={ { mt: '45px' } }
+                id='menu-appbar'
+                anchorEl={ anchorElUser }
+                anchorOrigin={ {
+                  vertical: 'top',
+                  horizontal: 'right'
+                } }
+                keepMounted
+                transformOrigin={ {
+                  vertical: 'top',
+                  horizontal: 'right'
+                } }
+                open={ Boolean(anchorElUser) }
+                onClose={ handleCloseUserMenu }
+              >
 
-                <Button>
-                  <Typography
-                    component={ 'a' }
+                <MenuItem key='profile' onClick={ handleCloseUserMenu }>
 
-                    sx={ {
-                      textDecoration: 'none',
-                      color: '#545050'
-                    }
-                    }
-                    href={ RoutesList.ProfilePage }
-                    textAlign='center'>Profile</Typography>
-                </Button>
+                  <Button>
+                    <Typography
+                      component={ 'a' }
 
-              </MenuItem>
-              <MenuItem key={ 'logout' } onClick={ handleCloseUserMenu }>
+                      sx={ {
+                        textDecoration: 'none',
+                        color: '#545050'
+                      }
+                      }
+                      href={ RoutesList.ProfilePage }
+                      textAlign='center'>Profile</Typography>
+                  </Button>
 
-                <Button onClick={ handleLogout }>
-                  <Typography
-                    textAlign='center'
-                    sx={ {
-                      color: 'red'
-                    } }>Logout</Typography>
-                </Button>
+                </MenuItem>
+                <MenuItem key={ 'logout' } onClick={ handleCloseUserMenu }>
 
-              </MenuItem>
-            </Menu>
-          </Box>
+                  <Button onClick={ handleLogout }>
+                    <Typography
+                      textAlign='center'
+                      sx={ {
+                        color: 'red'
+                      } }>Logout</Typography>
+                  </Button>
+
+                </MenuItem>
+              </Menu>
+            </Box> }
         </Toolbar>
       </Container>
     </AppBar>
