@@ -12,15 +12,15 @@ import { Person } from '@mui/icons-material'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import ship from '../../../../assets/enemy-battlecruiser-base.png'
-import { RoutesList } from '../../../../routes/routesList'
-import { Link } from '../../../common/link'
-import { PRACTICUM_RESOURCES_PATH } from '../../../../config/api'
-import { useAppDispatch, useAppSelector } from '../../../../hooks/store'
-import { logout, userInfoSelector } from '../../../../store/auth'
+import ship from '../../../assets/enemy-battlecruiser-base.png'
+import { RoutesList } from '../../../routes/routesList'
+import { Link } from '../link'
+import { PRACTICUM_RESOURCES_PATH } from '../../../config/api'
+import { useAppDispatch, useAppSelector } from '../../../hooks/store'
+import { logout, userInfoSelector } from '../../../store/auth'
 import { useCallback } from 'react'
-import ThemeSwitcher from '../../../common/theme-switcher'
-import { themeSelector } from '../../../../store/theme'
+import ThemeSwitcher from '../theme-switcher'
+import { themeSelector } from '../../../store/theme'
 
 
 const pages = [ { pageName: 'Play', route: RoutesList.GamePage }, {
@@ -53,7 +53,6 @@ function Header() {
     dispatch(logout())
   }, [])
 
-  const theme = useAppSelector(themeSelector)
 
 
   return (
@@ -136,6 +135,7 @@ function Header() {
                   </Link>
                 </MenuItem>
               )) }
+              <MenuItem><ThemeSwitcher/></MenuItem>
             </Menu>
           </Box>
           {/* DESKTOP MENU*/ }

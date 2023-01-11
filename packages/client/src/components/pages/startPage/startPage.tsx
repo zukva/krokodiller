@@ -1,66 +1,54 @@
 import React from 'react'
-import { Box, Container, ImageList, ImageListItem } from '@mui/material'
-import Header from './Header/header'
+import { Box, Button, Container } from '@mui/material'
 import { useAppSelector } from '../../../hooks/store'
 import { themeSelector } from '../../../store/theme'
-import { Themes } from '../../../enums/themes'
 import gameCover from '../../../assets/game-cover.png'
+import backgrStars from '../../../assets/background-stars.png'
 import Typography from '@mui/material/Typography'
+import PageLayout from '../../common/page-layout'
+import { RoutesList } from '../../../routes/routesList'
 
 export const StartPage: React.FC = () => {
-  const theme = useAppSelector(themeSelector)
-  console.log('theme', theme)
+const theme = useAppSelector(themeSelector)
 
-  const listOfFirstPlayers = [ { name: '1 player', count: 10 }, { name: '2 player', count: 7 }, {
-    name: '3 player',
-    count: 4
-  } ]
-
-  const listOfTeam = [  'Антон Колотаев',  'Андрей Игнашов', 'Андрей Игнашов', 'Татьяна Шадрина','Ментор Артём Коньков',]
+  const listOfTeam = [ 'Антон Колотаев', 'Андрей Игнашов', 'Андрей Игнашов', 'Татьяна Шадрина', 'Ментор Артём Коньков' ]
   return (
 
-    <Box sx={ {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: theme === Themes.DarkTheme ? 'darkgray' : '#e7e1e138',
-      minHeight: '100vh'
-    } }
-         color={ 'primary' }
+    <PageLayout
     >
-      <Header />
+
       <Box sx={ {
         flexGrow: '1',
         padding: { xs: 0, md: 4 },
         display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center'
+        flexDirection: 'column',
+        justifyContent: 'space-between'
 
       } }>
-        <Box sx={ {} }>
+        <Box sx={ { flexGrow: 1 } }>
           <Container sx={ {
             padding: 4,
-            display: 'flex',
+            display: { xs: 'flex', sm: 'grid' },
+            gridTemplateColumns: '1fr 1fr',
             gap: { xs: 2, md: 8 },
             flexWrap: 'wrap',
             justifyContent: 'center',
-            height: '100%'
+            height: { md: '100%' },
+            width: '100%'
           } }>
+
             <Box sx={ {
-              maxWidth: { xs: '300px', lg: '500px' },
-              minWidth: { xs: '250px', lg: '400px' },
-              minHeight:'100px',
-              height: 'auto',
+              width: '100%',
               borderRadius: '10px',
               overflow: 'hidden',
               backgroundImage: `url(${ gameCover })`,
               backgroundRepeat: `no-repeat`,
               backgroundPosition: 'center',
-              backgroundSize: 'contain'
+              backgroundSize: 'contain',
+
+              display: { xs: 'none', sm: 'block' }
             }
-            }/>
-
-
+            } />
             <Box sx={ { borderRadius: '10px', padding: '10px' } }>
               <Container>
                 <Typography
@@ -87,7 +75,7 @@ export const StartPage: React.FC = () => {
                     fontWeight: 400,
                     fontSize: 20,
                     letterSpacing: '.1rem',
-                    lineHeight: 2,
+                    lineHeight: { xs: 1.5, md: 2 },
                     color: 'inherit',
                     textDecoration: 'none',
                     textAlign: 'center'
@@ -100,79 +88,61 @@ export const StartPage: React.FC = () => {
 
                 </Typography>
               </Container>
+              <Button color={ 'primary' } sx={ {
+                display: 'flex',
+                justifyContent: 'center',
+                backgroundColor: 'black',
 
+                backgroundImage: `url(${ backgrStars })`,
+                backgroundRepeat: `no-repeat`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                border: '1px solid white',
+                borderRadius: '10px',
+                padding: '5px',
+                marginTop: '20px'
+
+              } }
+                      component={ 'a' }
+                      href={ RoutesList.GamePage }
+              >
+                <Typography textAlign='center'
+
+                            component={ 'span' }
+                            sx={ {
+                              fontWeight: 700,
+                              letterSpacing: '.3rem',
+                              // color: 'white',
+                              textDecoration: 'none',
+                              padding: '5px'
+                            } }>Play</Typography>
+              </Button>
             </Box>
           </Container>
         </Box>
 
         <Box sx={ {
           border: '4px solid lightgray', borderRadius: '10px', padding: '10px',
-          display: { xs: 'flex',  },
-          flexDirection:{xs: 'row', lg: 'column'},
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          flexGrow: 1
-
+          width: '100%'
         } }>
-          <Box sx={ { display: 'flex', flexDirection: 'column', gap: 4, mb: 5 } }>
 
-            <Typography
-              variant='h5'
-              noWrap
-              sx={ {
-                mb: 2,
-                fontWeight: 600,
-                fontSize: 16,
-                letterSpacing: '.1rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                textAlign: 'center'
-              } }
-            >
-              Best players
-            </Typography>
-            {
-              listOfFirstPlayers.map((item, index) => (
-                <Typography
-                  component={ 'p' }
-                  key={ index }
-                  sx={ {
-                    display: 'flex',
-                    flexWrap: 'nowrap',
-                    gap: 1,
-                    justifyContent: 'space-between',
-                    fontWeight: 400,
-                    fontSize: 14,
-                    letterSpacing: '.1rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    textAlign: 'center'
-                  } }
-                >
-                  <Typography component={ 'span' }
-                              sx={ { whiteSpace: 'nowrap' } }>{ index + 1 } . { item.name }</Typography>
-                  <span>{ item.count }</span>
-                </Typography>
-              ))
-            }
-          </Box>
-          <Box sx={ { display: 'flex', flexDirection: 'column', gap: 4, minWidth: '300px', mb: 5 } }>
 
-            <Typography
-              variant='h5'
-              noWrap
-              sx={ {
-                mb: 2,
-                fontWeight: 600,
-                fontSize: 16,
-                letterSpacing: '.1rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                textAlign: 'center'
-              } }
-            >
-              Team
-            </Typography>
+          <Typography
+            variant='h5'
+            noWrap
+            sx={ {
+              mb: 2,
+              fontWeight: 600,
+              fontSize: 16,
+              letterSpacing: '.1rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              textAlign: 'center'
+            } }
+          >
+            Team
+          </Typography>
+          <Container sx={ { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 2 } }>
             {
               listOfTeam.map((item, index) => (
                 <Typography
@@ -189,21 +159,19 @@ export const StartPage: React.FC = () => {
                     color: 'inherit',
                     textDecoration: 'none',
                     textAlign: 'center'
-                  } }
-                >
+                  } }>
                   <Typography component={ 'span' }
-                              sx={ { whiteSpace: 'nowrap' } }>{ index + 1 } . { item }</Typography>
+                              sx={ { whiteSpace: 'nowrap' } }> { item }</Typography>
                 </Typography>
               ))
             }
-
-          </Box>
+          </Container>
 
 
         </Box>
       </Box>
 
 
-    </Box>
+    </PageLayout>
   )
 }
