@@ -95,9 +95,11 @@ export const logout = createAppAsyncThunk(
 
 export const oAuthSignIn = createAppAsyncThunk(
   'auth/oAuthSignIn',
-  async (_, {dispatch}) => {
+  async (_, { dispatch }) => {
     try {
-      const res = await authAPI.oauthGetServiceId({redirect_uri: DEV_CLIENT_PATH})
+      const res = await authAPI.oauthGetServiceId({
+        redirect_uri: DEV_CLIENT_PATH,
+      })
       const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${res.service_id}&redirect_uri=${DEV_CLIENT_PATH}`
       dispatch(push(url))
     } catch (error: any) {
@@ -108,14 +110,14 @@ export const oAuthSignIn = createAppAsyncThunk(
 
 export const authWithOAuth = createAppAsyncThunk(
   'auth/authWithOAuth',
-  async (code: string, {dispatch}) => {
+  async (code: string, { dispatch }) => {
     try {
       await authAPI.oauthSignIn({
         code,
-        redirect_uri: DEV_CLIENT_PATH
+        redirect_uri: DEV_CLIENT_PATH,
       })
       dispatch(authUser())
-    } catch(error: any) {
+    } catch (error: any) {
       dispatch(setAlertError(error))
     }
   }
@@ -129,12 +131,12 @@ const authSlice = createSlice({
       state.userInfo = action.payload
     },
   },
-  extraReducers: (builder) => {
-    addRequestExtraCases(builder, authUser, 'authUserRequest');
-    addRequestExtraCases(builder, signUpUser, 'signUpRequest');
-    addRequestExtraCases(builder, signInUser, 'signInRequest');
-    addRequestExtraCases(builder, oAuthSignIn, 'oAuthSignIn');
-    addRequestExtraCases(builder, authWithOAuth, 'authWithOAuth');
+  extraReducers: builder => {
+    addRequestExtraCases(builder, authUser, 'authUserRequest')
+    addRequestExtraCases(builder, signUpUser, 'signUpRequest')
+    addRequestExtraCases(builder, signInUser, 'signInRequest')
+    addRequestExtraCases(builder, oAuthSignIn, 'oAuthSignIn')
+    addRequestExtraCases(builder, authWithOAuth, 'authWithOAuth')
   },
 })
 
