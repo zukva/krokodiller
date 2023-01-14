@@ -7,12 +7,11 @@ import { themes } from './config/themes'
 import { themeSelector } from './store/theme'
 import useAuth from './hooks/useAuth'
 import AppAlert from './components/common/app-alert'
-import useInitTheme from './hooks/useInitTheme'
 
 function App() {
   const theme = useAppSelector(themeSelector)
 
-  useInitTheme()
+  // useInitTheme()
   useAuth()
 
   return (
