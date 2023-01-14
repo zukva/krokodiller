@@ -1,10 +1,11 @@
 import { useCanvas } from '../../hooks'
-import game from '../../engine/game-engine'
+import useGameContext from '../../hooks/use-game-context'
 
 function Score() {
   const context = useCanvas()
+  const game = useGameContext()
 
-  if (context) {
+  if (context && game) {
     context.font = '16px serif'
     context.fillText(game.gameState.score.toString(), 20, 20)
   }

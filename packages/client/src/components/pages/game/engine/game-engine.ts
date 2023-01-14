@@ -5,6 +5,7 @@ import getRandomArbitrary from '../../../../utils/get-random-arbitrary'
 import { IntervalId } from '../../../../types/interval-id'
 import checkObjectsIntersect from './utils/check-objects-intersect'
 import GAME_SETTINGS from '../game-settings'
+import GameMusic from './game-music'
 
 type GameState = {
   ship: Ship
@@ -12,10 +13,18 @@ type GameState = {
   enemiesBullets: Bullet[]
   shipBullets: Bullet[]
   score: number
+  mute: boolean
 }
 
-const { ship, enemy, enemyBullet, shipBullet, canvas, cleanerInterval } =
-  GAME_SETTINGS
+const {
+  ship,
+  enemy,
+  enemyBullet,
+  shipBullet,
+  canvas,
+  cleanerInterval,
+  muteOnInit,
+} = GAME_SETTINGS
 
 class GameEngine {
   private shipBulletsIntervalId: IntervalId | undefined
@@ -25,10 +34,11 @@ class GameEngine {
   private enemiesIntervalId: IntervalId | undefined
 
   private objectsCleanerIntervalId: IntervalId | undefined
+  private gameMusic: Record<string, GameMusic> = {}
 
-  gameState: GameState = GameEngine.getInitGameState()
+  gameState: GameState = this.getInitGameState()
 
-  private static getInitGameState() {
+  getInitGameState() {
     return {
       ship: new Ship(
         canvas.width / 2 - ship.width / 2,
@@ -40,6 +50,7 @@ class GameEngine {
       enemiesBullets: [],
       shipBullets: [],
       score: 0,
+      mute: this.gameState?.mute ?? muteOnInit,
     }
   }
 
@@ -105,6 +116,31 @@ class GameEngine {
     }, shipBullet.interval)
   }
 
+  async initResources() {
+    const backgroundMusic = await new GameMusic(
+      '/src/assets/background-music.wav',
+      true
+    )
+    const explosionSound = await new GameMusic(
+      '/src/assets/explosion-music.wav'
+    )
+    const gameOverSound = await new GameMusic('/src/assets/game-over-music.wav')
+    this.gameMusic.backgroundMusic = backgroundMusic
+    this.gameMusic.explosionSound = explosionSound
+    this.gameMusic.gameOverSound = gameOverSound
+  }
+
+  muteMusic() {
+    this.gameMusic.backgroundMusic.stop()
+    this.gameMusic.explosionSound.stop()
+    this.gameState.mute = true
+  }
+
+  unMuteMusic() {
+    this.gameMusic.backgroundMusic.start()
+    this.gameState.mute = false
+  }
+
   start() {
     this.objectsCleaner()
     this.generateEnemies()
@@ -117,10 +153,15 @@ class GameEngine {
     clearInterval(this.enemiesIntervalId)
     clearInterval(this.shipBulletsIntervalId)
     clearInterval(this.enemiesBulletsIntervalId)
+    this.gameMusic.backgroundMusic.stop()
+    this.gameMusic.gameOverSound.start()
   }
 
   restart() {
-    this.gameState = GameEngine.getInitGameState()
+    this.gameState = this.getInitGameState()
+    if (!this.gameState.mute) {
+      this.gameMusic.backgroundMusic.start()
+    }
     this.start()
   }
 
@@ -136,10 +177,13 @@ class GameEngine {
           enemies[i].exploded = true
           this.gameState.score += 1
           shipBullets[j].isAlive = false
+          if (!this.gameState.mute) {
+            this.gameMusic.explosionSound.start()
+          }
         }
       }
     }
   }
 }
 
-export default new GameEngine()
+export default GameEngine

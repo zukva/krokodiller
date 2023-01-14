@@ -5,7 +5,7 @@ import {
   SignInData,
   SignUpData,
   SignUpResponse,
-  UserInfo
+  UserInfo,
 } from './types'
 import { serverApi } from '../services/HTTPTransport'
 

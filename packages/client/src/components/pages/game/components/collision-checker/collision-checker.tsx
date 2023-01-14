@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { useCanvas } from '../../hooks'
-import game from '../../engine/game-engine'
 import checkCollision from '../../engine/utils/check-collision'
+import useGameContext from '../../hooks/use-game-context'
 
 type Props = {
   handleStopGame: () => void
@@ -10,15 +10,13 @@ type Props = {
 
 function CollisionChecker({ handleStopGame }: Props) {
   useCanvas()
-  const isShipEnemyCollision = checkCollision(
-    [game.gameState.ship],
-    game.gameState.enemies
-  )
-  const isShipEnemyBulletCollision = checkCollision(
-    game.gameState.enemiesBullets,
-    [game.gameState.ship]
-  )
-  game.checkEnemyShipBulletsCollision()
+  const game = useGameContext()
+  const isShipEnemyCollision =
+    game && checkCollision([game?.gameState.ship], game?.gameState.enemies)
+  const isShipEnemyBulletCollision =
+    game &&
+    checkCollision(game?.gameState.enemiesBullets, [game?.gameState.ship])
+  game?.checkEnemyShipBulletsCollision()
 
   useEffect(() => {
     if (isShipEnemyCollision || isShipEnemyBulletCollision) {

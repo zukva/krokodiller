@@ -25,6 +25,7 @@ const GAME_SETTINGS = {
     interval: 700,
   },
   cleanerInterval: 10000,
+  muteOnInit: true,
 }
 
 export default GAME_SETTINGS

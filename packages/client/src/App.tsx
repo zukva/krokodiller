@@ -1,7 +1,6 @@
 import React from 'react'
-import { Box, CssBaseline, NoSsr, ThemeProvider } from '@mui/material'
+import { Box, CssBaseline, ThemeProvider } from '@mui/material'
 
-import Preloader from './components/common/preloader'
 import { MainRouter } from './routes/MainRouter'
 import { useAppSelector } from './hooks/store'
 import { themes } from './config/themes'
@@ -18,9 +17,6 @@ function App() {
   return (
     <ThemeProvider theme={themes[theme]}>
       <CssBaseline />
-      <NoSsr>
-        <Preloader />
-      </NoSsr>
       <Box sx={{ position: 'relative' }}>
         <AppAlert />
         <MainRouter />
