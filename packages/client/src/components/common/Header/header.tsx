@@ -20,7 +20,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/store'
 import { logout, userInfoSelector } from '../../../store/auth'
 import { useCallback } from 'react'
 import ThemeSwitcher from '../theme-switcher'
-import { themeSelector } from '../../../store/theme'
+
 
 
 const pages = [ { pageName: 'Play', route: RoutesList.GamePage }, {
@@ -53,22 +53,18 @@ function Header() {
     dispatch(logout())
   }, [])
 
-
-
   return (
-    <AppBar position='static' sx={ { background: '#414e5a' } } color='primary' enableColorOnDark>
+    <AppBar position='static' sx={{ background: '#414e5a' }} color='primary' enableColorOnDark>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <Box sx={ { display: { xs: 'none', lg: 'flex' }, mr: 1, width: 60, height: 60, padding: 2 } }>
+          <Box sx={{ display: { xs: 'none', lg: 'flex' }, mr: 1, width: 60, height: 60, padding: 2 }}>
             <img src={ ship } alt={ 'logo' } />
           </Box>
-
           <Typography
             variant='h6'
-
             component='a'
             href='/'
-            sx={ {
+            sx={{
               mr: 4,
               display: { xs: 'none', lg: 'flex' },
               fontWeight: 700,
@@ -76,7 +72,7 @@ function Header() {
               color: 'inherit',
               textDecoration: 'none',
               whiteSpace: 'break-world'
-            } }
+            }}
           >
             Space Runner
             <Typography
@@ -84,7 +80,7 @@ function Header() {
               noWrap
               component='a'
               href='/'
-              sx={ {
+              sx={{
                 mr: 4,
                 display: { xs: 'none', lg: 'flex' },
                 fontWeight: 400,
@@ -93,13 +89,12 @@ function Header() {
                 letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none'
-              } }
+              }}
             >
               by Zukva
             </Typography>
           </Typography>
-
-          <Box sx={ { flexGrow: 1, display: { xs: 'flex', lg: 'none' } } }>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'none' } }}>
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -113,20 +108,20 @@ function Header() {
             <Menu
               id='menu-appbar'
               anchorEl={ anchorElNav }
-              anchorOrigin={ {
+              anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left'
-              } }
+              }}
               keepMounted
-              transformOrigin={ {
+              transformOrigin={{
                 vertical: 'top',
                 horizontal: 'left'
-              } }
+              }}
               open={ Boolean(anchorElNav) }
               onClose={ handleCloseNavMenu }
-              sx={ {
+              sx={{
                 display: { xs: 'block', lg: 'none' }
-              } }
+              }}
             >
               { pages.map((page) => (
                 <MenuItem key={ page.pageName } onClick={ handleCloseNavMenu }>
@@ -139,37 +134,35 @@ function Header() {
             </Menu>
           </Box>
           {/* DESKTOP MENU*/ }
-          <Box sx={ { display: { xs: 'none', md: 'flex', lg: 'none' }, mr: 1, width: 80, height: 80, padding: 2 } }>
+          <Box sx={{ display: { xs: 'none', md: 'flex', lg: 'none' }, mr: 1, width: 80, height: 80, padding: 2 }}>
             <img src={ ship } alt={ 'logo' } />
           </Box>
-          <Box sx={ {
+          <Box sx={{
             display: 'flex',
             flexWrap: 'wrap',
-          } }>
+          }}>
             <Typography
               variant='h6'
               component='a'
               noWrap
               href='/'
-              sx={ {
+              sx={{
                 mr: 4,
                 display: { xs: 'flex', lg: 'none' },
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none'
-
-              } }
+              }}
             >
               Space Runner
-
             </Typography>
             <Typography
               variant='h6'
               noWrap
               component='a'
               href='/'
-              sx={ {
+              sx={{
                 mr: 4,
                 display: { xs: 'flex', lg: 'none' },
                 fontWeight: 400,
@@ -178,35 +171,31 @@ function Header() {
                 letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none'
-              } }
+              }}
             >
               by Zukva
             </Typography>
           </Box>
-
-          <Box sx={ { flexGrow: 1, gap: 5, display: { xs: 'none', lg: 'flex' } } }>
+          <Box sx={{ flexGrow: 1, gap: 5, display: { xs: 'none', lg: 'flex' } }}>
             <MenuItem key={ 'Play' } onClick={ handleCloseNavMenu }
-                      sx={ {
+                      sx={{
                         borderWidth: 1,
                         borderStyle: 'solid',
                         borderColor: 'white',
                         borderRadius: '10px',
                         backgroundColor: 'rgba(255,255,255,0.07)'
-                      } }>
-
+                      }}>
               <Typography textAlign='center'
                           component={ 'a' }
                           href={ RoutesList.GamePage }
-                          sx={ {
+                          sx={{
                             fontWeight: 700,
                             letterSpacing: '.3rem',
                             color: 'white',
                             textDecoration: 'none'
-                          } }>Play</Typography>
-
+                          }}>Play</Typography>
             </MenuItem>
             <MenuItem key={ 'LeaderBoard' } onClick={ handleCloseNavMenu }>
-
               <Typography textAlign='center'
                           component={ 'a' }
                           href={ RoutesList.LeaderboardPage }
@@ -216,88 +205,78 @@ function Header() {
                             color: 'inherit',
                             textDecoration: 'none'
                           } }>Leader board</Typography>
-
             </MenuItem>
             <MenuItem key={ 'Forum' } onClick={ handleCloseNavMenu }>
               <Typography textAlign='center'
                           component={ 'a' }
                           href={ RoutesList.ForumPage }
-                          sx={ {
+                          sx={{
                             fontWeight: 700,
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none'
-                          } }>Forum</Typography>
+                          }}>Forum</Typography>
             </MenuItem>
             <ThemeSwitcher />
           </Box>
-
           { !userInfo ?
-            <Box sx={ { flexGrow: 0 } }>
+            <Box sx={{ flexGrow: 0 }}>
               <Button color={ 'primary' }>
                 <Typography textAlign='center'
                             component={ 'a' }
                             href={ RoutesList.LoginPage }
-                            sx={ {
+                            sx={{
                               fontWeight: 700,
                               letterSpacing: '.1rem',
                               color: 'white',
                               textDecoration: 'none'
-                            } }>Login</Typography>
+                            }}>Login</Typography>
               </Button>
             </Box> :
-
-            <Box sx={ { flexGrow: 0 } }>
+            <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>
-                <IconButton onClick={ handleOpenUserMenu } sx={ { p: 0 } }>
+                <IconButton onClick={ handleOpenUserMenu } sx={{ p: 0 }}>
                   <Avatar alt='Remy Sharp' src={ `${ PRACTICUM_RESOURCES_PATH }/${ userInfo?.avatar }` }>
                     <Person fill='true' fontSize='medium' />
                   </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={ { mt: '45px' } }
+                sx={{ mt: '45px' }}
                 id='menu-appbar'
                 anchorEl={ anchorElUser }
-                anchorOrigin={ {
+                anchorOrigin={{
                   vertical: 'top',
                   horizontal: 'right'
-                } }
+                }}
                 keepMounted
-                transformOrigin={ {
+                transformOrigin={{
                   vertical: 'top',
                   horizontal: 'right'
-                } }
+                }}
                 open={ Boolean(anchorElUser) }
                 onClose={ handleCloseUserMenu }
               >
-
                 <MenuItem key='profile' onClick={ handleCloseUserMenu }>
-
                   <Button>
                     <Typography
                       component={ 'a' }
-
-                      sx={ {
+                      sx={{
                         textDecoration: 'none',
                         color: '#545050'
-                      }
-                      }
+                      }}
                       href={ RoutesList.ProfilePage }
                       textAlign='center'>Profile</Typography>
                   </Button>
-
                 </MenuItem>
                 <MenuItem key={ 'logout' } onClick={ handleCloseUserMenu }>
-
                   <Button onClick={ handleLogout }>
                     <Typography
                       textAlign='center'
-                      sx={ {
+                      sx={{
                         color: 'red'
-                      } }>Logout</Typography>
+                      }}>Logout</Typography>
                   </Button>
-
                 </MenuItem>
               </Menu>
             </Box> }
