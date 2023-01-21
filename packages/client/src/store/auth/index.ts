@@ -50,7 +50,9 @@ export const authUser = createAppAsyncThunk(
       if (!isUnprotectedPathname(location.pathname)) {
         dispatch(push(RoutesList.LoginPage))
       }
-      dispatch(setAlertError(error))
+      if (typeof error === 'string') {
+        dispatch(setAlertError(error))
+      }
     }
   }
 )
@@ -64,7 +66,9 @@ export const signUpUser = createAppAsyncThunk(
       dispatch(authUser())
       return response
     } catch (error: any) {
-      dispatch(setAlertError(error))
+      if (typeof error === 'string') {
+        dispatch(setAlertError(error))
+      }
     }
   }
 )
@@ -78,7 +82,9 @@ export const signInUser = createAppAsyncThunk(
       dispatch(authUser())
       return response
     } catch (error: any) {
-      dispatch(setAlertError(error))
+      if (typeof error === 'string') {
+        dispatch(setAlertError(error))
+      }
     }
   }
 )
@@ -90,7 +96,9 @@ export const logout = createAppAsyncThunk(
       await authAPI.logout()
       dispatch(push(RoutesList.LoginPage))
     } catch (error: any) {
-      dispatch(setAlertError(error))
+      if (typeof error === 'string') {
+        dispatch(setAlertError(error))
+      }
     }
   }
 )
@@ -106,7 +114,9 @@ export const oAuthSignIn = createAppAsyncThunk(
       const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${res.service_id}&redirect_uri=${CLIENT_PATH}`
       dispatch(push(url))
     } catch (error: any) {
-      dispatch(setAlertError(error))
+      if (typeof error === 'string') {
+        dispatch(setAlertError(error))
+      }
     }
   }
 )
@@ -121,7 +131,9 @@ export const authWithOAuth = createAppAsyncThunk(
       })
       dispatch(authUser())
     } catch (error: any) {
-      dispatch(setAlertError(error))
+      if (typeof error === 'string') {
+        dispatch(setAlertError(error))
+      }
     }
   }
 )

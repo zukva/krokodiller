@@ -1,5 +1,6 @@
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
+import { NoSsr } from '@mui/material'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -94,8 +95,6 @@ function Header() {
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
               sx={{
                 mr: 4,
                 display: { xs: 'none', lg: 'flex' },
@@ -252,77 +251,79 @@ function Header() {
             </MenuItem>
             <ThemeSwitcher />
           </Box>
-          {!userInfo ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Button color={'primary'}>
-                <Typography
-                  textAlign="center"
-                  component={'a'}
-                  href={RoutesList.LoginPage}
-                  sx={{
-                    fontWeight: 700,
-                    letterSpacing: '.1rem',
-                    color: 'white',
-                    textDecoration: 'none',
-                  }}>
-                  Login
-                </Typography>
-              </Button>
-            </Box>
-          ) : (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={`${backendPath}/p-api/resources/${userInfo?.avatar}`}>
-                    <Person fill="true" fontSize="medium" />
-                  </Avatar>
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}>
-                <MenuItem key="profile" onClick={handleCloseUserMenu}>
-                  <Button>
-                    <Typography
-                      component={'a'}
-                      sx={{
-                        textDecoration: 'none',
-                        color: '#545050',
-                      }}
-                      href={RoutesList.ProfilePage}
-                      textAlign="center">
-                      Profile
-                    </Typography>
-                  </Button>
-                </MenuItem>
-                <MenuItem key={'logout'} onClick={handleCloseUserMenu}>
-                  <Button onClick={handleLogout}>
-                    <Typography
-                      textAlign="center"
-                      sx={{
-                        color: 'red',
-                      }}>
-                      Logout
-                    </Typography>
-                  </Button>
-                </MenuItem>
-              </Menu>
-            </Box>
-          )}
+          <NoSsr>
+            {!userInfo ? (
+              <Box sx={{ flexGrow: 0 }}>
+                <Button color={'primary'}>
+                  <Typography
+                    textAlign="center"
+                    component={'a'}
+                    href={RoutesList.LoginPage}
+                    sx={{
+                      fontWeight: 700,
+                      letterSpacing: '.1rem',
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}>
+                    Login
+                  </Typography>
+                </Button>
+              </Box>
+            ) : (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={`${backendPath}/p-api/resources/${userInfo?.avatar}`}>
+                      <Person fill="true" fontSize="medium" />
+                    </Avatar>
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}>
+                  <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                    <Button>
+                      <Typography
+                        component={'a'}
+                        sx={{
+                          textDecoration: 'none',
+                          color: '#545050',
+                        }}
+                        href={RoutesList.ProfilePage}
+                        textAlign="center">
+                        Profile
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem key={'logout'} onClick={handleCloseUserMenu}>
+                    <Button onClick={handleLogout}>
+                      <Typography
+                        textAlign="center"
+                        sx={{
+                          color: 'red',
+                        }}>
+                        Logout
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            )}
+          </NoSsr>
         </Toolbar>
       </Container>
     </AppBar>
