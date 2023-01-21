@@ -5,22 +5,28 @@ import express from 'express'
 import { createServer as createViteServer, ViteDevServer } from 'vite'
 import serialize from 'serialize-javascript'
 import createEmotionServer from '@emotion/server/create-instance'
+import cors from 'cors'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const isProdMode = process.env.NODE_ENV === 'production'
 
 async function createServer() {
   const app = express()
+  app.set('trust proxy', 'loopback')
 
   let vite: ViteDevServer
 
   if (isProdMode) {
     const serveStatic = await import('serve-static')
     const dist = path.resolve(__dirname, 'dist/client')
-
     app.use(
       serveStatic.default(dist, {
         index: false,
+      })
+    ).use(
+      cors({
+        credentials: true,
+        origin: process.env.VITE_CLIENT_PATH,
       })
     )
   } else {

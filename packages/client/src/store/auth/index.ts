@@ -10,7 +10,7 @@ import { RoutesList } from '../../routes/routesList'
 import { isUnprotectedPathname } from './utils'
 import { getUserTheme } from '../theme'
 import { INIT_REQUEST_STATE } from '../consts'
-import { DEV_CLIENT_PATH } from '../../config/api'
+import { DEV_CLIENT_PATH, PROD_CLIENT_PATH } from '../../config/api'
 
 type AuthState = {
   signUpRequest: RequestStore<ApiTypes.SignUpResponse>
@@ -28,6 +28,8 @@ const initialState = {
   authWithOAuth: INIT_REQUEST_STATE,
   userInfo: {},
 } as AuthState
+
+const CLIENT_PATH = import.meta.env.PROD ? PROD_CLIENT_PATH : DEV_CLIENT_PATH
 
 export const authUser = createAppAsyncThunk(
   'auth/authUser',
@@ -97,10 +99,11 @@ export const oAuthSignIn = createAppAsyncThunk(
   'auth/oAuthSignIn',
   async (_, { dispatch }) => {
     try {
+      const redirectUri = CLIENT_PATH as string
       const res = await authAPI.oauthGetServiceId({
-        redirect_uri: DEV_CLIENT_PATH,
+        redirect_uri: redirectUri,
       })
-      const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${res.service_id}&redirect_uri=${DEV_CLIENT_PATH}`
+      const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${res.service_id}&redirect_uri=${CLIENT_PATH}`
       dispatch(push(url))
     } catch (error: any) {
       dispatch(setAlertError(error))
@@ -114,7 +117,7 @@ export const authWithOAuth = createAppAsyncThunk(
     try {
       await authAPI.oauthSignIn({
         code,
-        redirect_uri: DEV_CLIENT_PATH,
+        redirect_uri: CLIENT_PATH,
       })
       dispatch(authUser())
     } catch (error: any) {

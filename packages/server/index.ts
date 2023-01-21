@@ -13,12 +13,15 @@ app
   .use(
     cors({
       credentials: true,
-      origin: `http://localhost:${process.env.CLIENT_PORT}`,
+      origin:
+        process.env.NODE_ENV === 'production'
+          ? 'https://zukva.ya-praktikum.tech'
+          : `http://localhost:${process.env.CLIENT_PORT}`,
     })
   )
   .use(express.json())
   .disable('x-powered-by')
-  // .enable('trust proxy')
+  .enable('trust proxy')
   // .set('query parser', queryParser)
   // .use(cookieParser())
   .use(morgan('combined'))

@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 
-import { DEV_SERVER_API_PATH } from '../config/api'
 import { ApiTypes } from '../types'
+import { DEV_BACKEND_PATH, PROD_BACKEND_PATH } from '../config/api'
 
 type RequestOptions = Partial<Omit<AxiosRequestConfig, 'url'>> & {
   query?: any
@@ -104,6 +104,8 @@ class Http {
   }
 }
 
-export const serverApi = new Http(DEV_SERVER_API_PATH)
+const backendPath = import.meta.env.PROD ? PROD_BACKEND_PATH : DEV_BACKEND_PATH
+export const serverApi = new Http(`${backendPath}/api`)
+export const prakticumApi = new Http(`${backendPath}/p-api`)
 
 export default Http
