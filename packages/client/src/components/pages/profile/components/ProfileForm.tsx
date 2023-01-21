@@ -95,7 +95,11 @@ const ProfileForm = () => {
           height: 120,
           cursor: 'pointer',
         }}
-        src={userInfo?.avatar ? `${backendPath}/p-api/resources/${userInfo?.avatar}` : ''}
+        src={
+          userInfo?.avatar
+            ? `${backendPath}/p-api/resources/${userInfo?.avatar}`
+            : ''
+        }
         onClick={handleToggleAvatarModal}>
         <Person fill="true" fontSize="large" />
       </Avatar>

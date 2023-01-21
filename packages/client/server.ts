@@ -19,16 +19,18 @@ async function createServer() {
   if (isProdMode) {
     const serveStatic = await import('serve-static')
     const dist = path.resolve(__dirname, 'dist/client')
-    app.use(
-      serveStatic.default(dist, {
-        index: false,
-      })
-    ).use(
-      cors({
-        credentials: true,
-        origin: process.env.VITE_CLIENT_PATH,
-      })
-    )
+    app
+      .use(
+        serveStatic.default(dist, {
+          index: false,
+        })
+      )
+      .use(
+        cors({
+          credentials: true,
+          origin: process.env.VITE_CLIENT_PATH,
+        })
+      )
   } else {
     vite = await createViteServer({
       server: { middlewareMode: true },

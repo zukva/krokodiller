@@ -15,22 +15,28 @@ import MenuItem from '@mui/material/MenuItem'
 import ship from '../../../assets/enemy-battlecruiser-base.png'
 import { RoutesList } from '../../../routes/routesList'
 import { Link } from '../link'
-import { PRACTICUM_RESOURCES_PATH } from '../../../config/api'
 import { useAppDispatch, useAppSelector } from '../../../hooks/store'
 import { logout, userInfoSelector } from '../../../store/auth'
 import { useCallback } from 'react'
 import ThemeSwitcher from '../theme-switcher'
+import { DEV_BACKEND_PATH, PROD_BACKEND_PATH } from '../../../config/api'
 
+const backendPath = import.meta.env.PROD ? PROD_BACKEND_PATH : DEV_BACKEND_PATH
 
-
-const pages = [ { pageName: 'Play', route: RoutesList.GamePage }, {
-  pageName: 'Leaderboard',
-  route: RoutesList.LeaderboardPage
-}, { pageName: 'Forum', route: RoutesList.ForumPage } ]
+const pages = [
+  { pageName: 'Play', route: RoutesList.GamePage },
+  {
+    pageName: 'Leaderboard',
+    route: RoutesList.LeaderboardPage,
+  },
+  { pageName: 'Forum', route: RoutesList.ForumPage },
+]
 
 function Header() {
-  const [ anchorElNav, setAnchorElNav ] = React.useState<null | HTMLElement>(null)
-  const [ anchorElUser, setAnchorElUser ] = React.useState<null | HTMLElement>(null)
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  )
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -54,16 +60,27 @@ function Header() {
   }, [])
 
   return (
-    <AppBar position='static' sx={{ background: '#414e5a' }} color='primary' enableColorOnDark>
-      <Container maxWidth='xl'>
+    <AppBar
+      position="static"
+      sx={{ background: '#414e5a' }}
+      color="primary"
+      enableColorOnDark>
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'none', lg: 'flex' }, mr: 1, width: 60, height: 60, padding: 2 }}>
-            <img src={ ship } alt={ 'logo' } />
+          <Box
+            sx={{
+              display: { xs: 'none', lg: 'flex' },
+              mr: 1,
+              width: 60,
+              height: 60,
+              padding: 2,
+            }}>
+            <img src={ship} alt={'logo'} />
           </Box>
           <Typography
-            variant='h6'
-            component='a'
-            href='/'
+            variant="h6"
+            component="a"
+            href="/"
             sx={{
               mr: 4,
               display: { xs: 'none', lg: 'flex' },
@@ -71,15 +88,14 @@ function Header() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
-              whiteSpace: 'break-world'
-            }}
-          >
+              whiteSpace: 'break-world',
+            }}>
             Space Runner
             <Typography
-              variant='h6'
+              variant="h6"
               noWrap
-              component='a'
-              href='/'
+              component="a"
+              href="/"
               sx={{
                 mr: 4,
                 display: { xs: 'none', lg: 'flex' },
@@ -88,80 +104,86 @@ function Header() {
                 fontFamily: 'italic',
                 letterSpacing: '.1rem',
                 color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
+                textDecoration: 'none',
+              }}>
               by Zukva
             </Typography>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'none' } }}>
             <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={ handleOpenNavMenu }
-              color='inherit'
-            >
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit">
               <MenuIcon />
             </IconButton>
             <Menu
-              id='menu-appbar'
-              anchorEl={ anchorElNav }
+              id="menu-appbar"
+              anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left'
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left'
+                horizontal: 'left',
               }}
-              open={ Boolean(anchorElNav) }
-              onClose={ handleCloseNavMenu }
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', lg: 'none' }
-              }}
-            >
-              { pages.map((page) => (
-                <MenuItem key={ page.pageName } onClick={ handleCloseNavMenu }>
-                  <Link to={ page.route }>
-                    <Typography textAlign='center'>{ page.pageName }</Typography>
+                display: { xs: 'block', lg: 'none' },
+              }}>
+              {pages.map(page => (
+                <MenuItem key={page.pageName} onClick={handleCloseNavMenu}>
+                  <Link to={page.route}>
+                    <Typography textAlign="center">{page.pageName}</Typography>
                   </Link>
                 </MenuItem>
-              )) }
-              <MenuItem><ThemeSwitcher/></MenuItem>
+              ))}
+              <MenuItem>
+                <ThemeSwitcher />
+              </MenuItem>
             </Menu>
           </Box>
-          {/* DESKTOP MENU*/ }
-          <Box sx={{ display: { xs: 'none', md: 'flex', lg: 'none' }, mr: 1, width: 80, height: 80, padding: 2 }}>
-            <img src={ ship } alt={ 'logo' } />
+          {/* DESKTOP MENU*/}
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex', lg: 'none' },
+              mr: 1,
+              width: 80,
+              height: 80,
+              padding: 2,
+            }}>
+            <img src={ship} alt={'logo'} />
           </Box>
-          <Box sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-          }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+            }}>
             <Typography
-              variant='h6'
-              component='a'
+              variant="h6"
+              component="a"
               noWrap
-              href='/'
+              href="/"
               sx={{
                 mr: 4,
                 display: { xs: 'flex', lg: 'none' },
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
+                textDecoration: 'none',
+              }}>
               Space Runner
             </Typography>
             <Typography
-              variant='h6'
+              variant="h6"
               noWrap
-              component='a'
-              href='/'
+              component="a"
+              href="/"
               sx={{
                 mr: 4,
                 display: { xs: 'flex', lg: 'none' },
@@ -170,116 +192,137 @@ function Header() {
                 fontFamily: 'italic',
                 letterSpacing: '.1rem',
                 color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
+                textDecoration: 'none',
+              }}>
               by Zukva
             </Typography>
           </Box>
-          <Box sx={{ flexGrow: 1, gap: 5, display: { xs: 'none', lg: 'flex' } }}>
-            <MenuItem key={ 'Play' } onClick={ handleCloseNavMenu }
-                      sx={{
-                        borderWidth: 1,
-                        borderStyle: 'solid',
-                        borderColor: 'white',
-                        borderRadius: '10px',
-                        backgroundColor: 'rgba(255,255,255,0.07)'
-                      }}>
-              <Typography textAlign='center'
-                          component={ 'a' }
-                          href={ RoutesList.GamePage }
-                          sx={{
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'white',
-                            textDecoration: 'none'
-                          }}>Play</Typography>
+          <Box
+            sx={{ flexGrow: 1, gap: 5, display: { xs: 'none', lg: 'flex' } }}>
+            <MenuItem
+              key={'Play'}
+              onClick={handleCloseNavMenu}
+              sx={{
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: 'white',
+                borderRadius: '10px',
+                backgroundColor: 'rgba(255,255,255,0.07)',
+              }}>
+              <Typography
+                textAlign="center"
+                component={'a'}
+                href={RoutesList.GamePage}
+                sx={{
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'white',
+                  textDecoration: 'none',
+                }}>
+                Play
+              </Typography>
             </MenuItem>
-            <MenuItem key={ 'LeaderBoard' } onClick={ handleCloseNavMenu }>
-              <Typography textAlign='center'
-                          component={ 'a' }
-                          href={ RoutesList.LeaderboardPage }
-                          sx={ {
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none'
-                          } }>Leader board</Typography>
+            <MenuItem key={'LeaderBoard'} onClick={handleCloseNavMenu}>
+              <Typography
+                textAlign="center"
+                component={'a'}
+                href={RoutesList.LeaderboardPage}
+                sx={{
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}>
+                Leader board
+              </Typography>
             </MenuItem>
-            <MenuItem key={ 'Forum' } onClick={ handleCloseNavMenu }>
-              <Typography textAlign='center'
-                          component={ 'a' }
-                          href={ RoutesList.ForumPage }
-                          sx={{
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none'
-                          }}>Forum</Typography>
+            <MenuItem key={'Forum'} onClick={handleCloseNavMenu}>
+              <Typography
+                textAlign="center"
+                component={'a'}
+                href={RoutesList.ForumPage}
+                sx={{
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}>
+                Forum
+              </Typography>
             </MenuItem>
             <ThemeSwitcher />
           </Box>
-          { !userInfo ?
+          {!userInfo ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Button color={ 'primary' }>
-                <Typography textAlign='center'
-                            component={ 'a' }
-                            href={ RoutesList.LoginPage }
-                            sx={{
-                              fontWeight: 700,
-                              letterSpacing: '.1rem',
-                              color: 'white',
-                              textDecoration: 'none'
-                            }}>Login</Typography>
+              <Button color={'primary'}>
+                <Typography
+                  textAlign="center"
+                  component={'a'}
+                  href={RoutesList.LoginPage}
+                  sx={{
+                    fontWeight: 700,
+                    letterSpacing: '.1rem',
+                    color: 'white',
+                    textDecoration: 'none',
+                  }}>
+                  Login
+                </Typography>
               </Button>
-            </Box> :
+            </Box>
+          ) : (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title='Open settings'>
-                <IconButton onClick={ handleOpenUserMenu } sx={{ p: 0 }}>
-                  <Avatar alt='Remy Sharp' src={ `${ PRACTICUM_RESOURCES_PATH }/${ userInfo?.avatar }` }>
-                    <Person fill='true' fontSize='medium' />
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={`${backendPath}/p-api/resources/${userInfo?.avatar}`}>
+                    <Person fill="true" fontSize="medium" />
                   </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
                 sx={{ mt: '45px' }}
-                id='menu-appbar'
-                anchorEl={ anchorElUser }
+                id="menu-appbar"
+                anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'right'
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right'
+                  horizontal: 'right',
                 }}
-                open={ Boolean(anchorElUser) }
-                onClose={ handleCloseUserMenu }
-              >
-                <MenuItem key='profile' onClick={ handleCloseUserMenu }>
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}>
+                <MenuItem key="profile" onClick={handleCloseUserMenu}>
                   <Button>
                     <Typography
-                      component={ 'a' }
+                      component={'a'}
                       sx={{
                         textDecoration: 'none',
-                        color: '#545050'
+                        color: '#545050',
                       }}
-                      href={ RoutesList.ProfilePage }
-                      textAlign='center'>Profile</Typography>
+                      href={RoutesList.ProfilePage}
+                      textAlign="center">
+                      Profile
+                    </Typography>
                   </Button>
                 </MenuItem>
-                <MenuItem key={ 'logout' } onClick={ handleCloseUserMenu }>
-                  <Button onClick={ handleLogout }>
+                <MenuItem key={'logout'} onClick={handleCloseUserMenu}>
+                  <Button onClick={handleLogout}>
                     <Typography
-                      textAlign='center'
+                      textAlign="center"
                       sx={{
-                        color: 'red'
-                      }}>Logout</Typography>
+                        color: 'red',
+                      }}>
+                      Logout
+                    </Typography>
                   </Button>
                 </MenuItem>
               </Menu>
-            </Box> }
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

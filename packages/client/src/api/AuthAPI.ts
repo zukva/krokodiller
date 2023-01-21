@@ -30,8 +30,13 @@ class AuthAPI {
     return prakticumApi.post<OAuthData, void>('/oauth/yandex', data)
   }
 
-  public oauthGetServiceId(query: OAuthServiceIdQuery): Promise<OAuthServiceIdResponse> {
-    return prakticumApi.get<OAuthServiceIdQuery, OAuthServiceIdResponse>('/oauth/yandex/service-id', query)
+  public oauthGetServiceId(
+    query: OAuthServiceIdQuery
+  ): Promise<OAuthServiceIdResponse> {
+    return prakticumApi.get<OAuthServiceIdQuery, OAuthServiceIdResponse>(
+      '/oauth/yandex/service-id',
+      query
+    )
   }
 }
 
