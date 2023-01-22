@@ -6,6 +6,9 @@ import { IntervalId } from '../../../../types/interval-id'
 import checkObjectsIntersect from './utils/check-objects-intersect'
 import GAME_SETTINGS from '../game-settings'
 import GameMusic from './game-music'
+import backgroundMusicUrl from '../../../../assets/background-music.wav'
+import explosionMusicUrl from '../../../../assets/explosion-music.wav'
+import gameOverMusic from '../../../../assets/game-over-music.wav'
 
 type GameState = {
   ship: Ship
@@ -118,13 +121,13 @@ class GameEngine {
 
   async initResources() {
     const backgroundMusic = await new GameMusic(
-      '/src/assets/background-music.wav',
+      backgroundMusicUrl,
       true
     )
     const explosionSound = await new GameMusic(
-      '/src/assets/explosion-music.wav'
+      explosionMusicUrl
     )
-    const gameOverSound = await new GameMusic('/src/assets/game-over-music.wav')
+    const gameOverSound = await new GameMusic(gameOverMusic)
     this.gameMusic.backgroundMusic = backgroundMusic
     this.gameMusic.explosionSound = explosionSound
     this.gameMusic.gameOverSound = gameOverSound
