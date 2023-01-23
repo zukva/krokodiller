@@ -12,7 +12,7 @@ function App() {
   const theme = useAppSelector(themeSelector)
 
   // useInitTheme()
-  useAuth()
+  // useAuth()
 
   return (
     <ThemeProvider theme={themes[theme]}>
