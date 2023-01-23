@@ -5,14 +5,15 @@ import Header from '../Header/header'
 
 const PageLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Box sx={{minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
-      <Header/>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
       <Container
-      sx={{
-        flexGrow: 1,
-        display: 'flex',
-      }}
-      >{children}</Container>
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+        }}>
+        {children}
+      </Container>
     </Box>
   )
 }

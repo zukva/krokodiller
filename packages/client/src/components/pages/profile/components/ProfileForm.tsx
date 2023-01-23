@@ -10,7 +10,9 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/store'
 import { changeProfile } from '../../../../store/profile'
 import { logout, userInfoSelector } from '../../../../store/auth'
 import AvatarModal from './AvatarModal'
-import { PRACTICUM_RESOURCES_PATH } from '../../../../config/api'
+import { DEV_BACKEND_PATH, PROD_BACKEND_PATH } from '../../../../config/api'
+
+const backendPath = import.meta.env.PROD ? PROD_BACKEND_PATH : DEV_BACKEND_PATH
 
 const validationSchema = yup.object({
   login: yup
@@ -93,7 +95,11 @@ const ProfileForm = () => {
           height: 120,
           cursor: 'pointer',
         }}
-        src={`${PRACTICUM_RESOURCES_PATH}/${userInfo?.avatar}`}
+        src={
+          userInfo?.avatar
+            ? `${backendPath}/p-api/resources/${userInfo?.avatar}`
+            : ''
+        }
         onClick={handleToggleAvatarModal}>
         <Person fill="true" fontSize="large" />
       </Avatar>
