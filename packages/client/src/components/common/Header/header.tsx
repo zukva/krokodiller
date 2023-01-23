@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import { Person } from '@mui/icons-material'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
@@ -20,9 +19,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/store'
 import { logout, userInfoSelector } from '../../../store/auth'
 import { useCallback } from 'react'
 import ThemeSwitcher from '../theme-switcher'
-import { DEV_BACKEND_PATH, PROD_BACKEND_PATH } from '../../../config/api'
-
-const backendPath = import.meta.env.PROD ? PROD_BACKEND_PATH : DEV_BACKEND_PATH
+import AppAvatar from '../app-avatar'
 
 const pages = [
   { pageName: 'Play', route: RoutesList.GamePage },
@@ -273,11 +270,11 @@ function Header() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
+                    <AppAvatar
                       alt="Remy Sharp"
-                      src={`${backendPath}/p-api/resources/${userInfo?.avatar}`}>
+                      src={userInfo?.avatar}>
                       <Person fill="true" fontSize="medium" />
-                    </Avatar>
+                    </AppAvatar>
                   </IconButton>
                 </Tooltip>
                 <Menu
