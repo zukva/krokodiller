@@ -58,9 +58,6 @@ function GameOverScreen({ onGameOver }: Props) {
           bottom: '25px',
           left: '50%',
           transform: 'translateX(-50%)',
-          // cursor: pointer;
-          // background: none;
-          // border: none;
         }}
         data-testid="restartGame"
         type="button"

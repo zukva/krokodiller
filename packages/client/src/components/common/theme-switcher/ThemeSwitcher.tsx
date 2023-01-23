@@ -25,7 +25,7 @@ const ThemeSwitcher = () => {
         marginRight: '20px',
       }}>
       <span>light</span>
-      <Switch onChange={handleChange} value={theme} />
+      <Switch onChange={handleChange} checked={theme === Themes.DarkTheme} />
       <span>dark</span>
     </Box>
   )
