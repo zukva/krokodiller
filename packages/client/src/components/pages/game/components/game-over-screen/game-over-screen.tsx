@@ -1,16 +1,25 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Box, IconButton, Typography } from '@mui/material'
 
 import gameCoverImg from '../../../../../assets/background-game-over.png'
 import restartButtonImg from '../../../../../assets/game-restart-button.png'
 import useGameContext from '../../hooks/use-game-context'
+import { useAppDispatch } from '../../../../../hooks/store'
+import { setGameResult } from '../../../../../store/leaderboard'
 
 type Props = {
   onGameOver: () => void
 }
 
 function GameOverScreen({ onGameOver }: Props) {
+  const dispatch = useAppDispatch()
   const game = useGameContext()
+  const score = game?.gameState?.score;
+  useEffect(() => {
+    if (score && score > 0) {
+      dispatch(setGameResult(score))
+    }
+  }, [score])
   const handleGameOver = useCallback(() => {
     onGameOver()
   }, [onGameOver])
@@ -35,7 +44,6 @@ function GameOverScreen({ onGameOver }: Props) {
           top: '220px',
           left: '50%',
           transform: 'translateX(-50%)',
-          // fontSize: '16px',
           color: 'yellow',
         }}>
         Ваш счет
@@ -47,10 +55,9 @@ function GameOverScreen({ onGameOver }: Props) {
           top: '283px',
           left: '50%',
           transform: 'translateX(-50%)',
-          // fontSize: '16px',
           color: 'yellow',
         }}>
-        {game.gameState.score}
+        {score}
       </Typography>
       <IconButton
         sx={{
@@ -58,9 +65,6 @@ function GameOverScreen({ onGameOver }: Props) {
           bottom: '25px',
           left: '50%',
           transform: 'translateX(-50%)',
-          // cursor: pointer;
-          // background: none;
-          // border: none;
         }}
         data-testid="restartGame"
         type="button"

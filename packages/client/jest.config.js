@@ -32,7 +32,7 @@ export default {
     },
   },
   moduleNameMapper: {
-    '.+\\.(css|less|sass|scss|png|svg|jpg|ttf|woff|woff2)$':
+    '.+\\.(css|less|sass|scss|png|svg|jpg|ttf|woff|woff2|wav)$':
       'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/src/tests/setup-tests.ts'],

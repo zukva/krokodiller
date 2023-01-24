@@ -24,7 +24,7 @@ function StartScreen({ onStart }: Props) {
       <IconButton
         sx={{
           position: 'absolute',
-          bottom: '30px',
+          top: '460px',
           left: '100px',
         }}
         data-testid="startGame"

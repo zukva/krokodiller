@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import GameEngine from './engine/game-engine'
 import { Nullable } from '../../../types'
 import Preloader from '../../common/preloader'
+import PageLayout from '../../common/page-layout'
 
 const GameWrapper = () => {
   const [gameEngine, setGameEngine] = useState<Nullable<GameEngine>>(null)
@@ -22,7 +23,7 @@ const GameWrapper = () => {
   }
   return (
     <GameContext.Provider value={gameEngine}>
-      {gameEngine && <Game />}
+      <PageLayout>{gameEngine && <Game />}</PageLayout>
     </GameContext.Provider>
   )
 }
