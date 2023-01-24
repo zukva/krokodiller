@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Divider,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -7,6 +8,7 @@ import {
 } from '@mui/material'
 import React, { useState } from 'react'
 import { CommentType } from '../../../../../store/forum'
+import AnswerInComment from './AnswerInComment'
 import AnswerToComment from './AnswerToComment'
 
 type CommentItemType = CommentType & { test: (data: any) => void }
@@ -46,27 +48,20 @@ const CommentItem: React.FC<CommentItemType> = ({
                 {!answerComment ? (
                   ''
                 ) : (
-                  <AnswerToComment
+                  <AnswerInComment
                     author={answerComment.author.nickname}
                     body={answerComment.body}
                   />
                 )}
 
-                <br />
                 {body ? body : 'no body'}
               </Typography>
             </>
           }
         />
-        {/* id --- {id} <br />
-      parentId --- {parentId} <br />
-      body comment --- {body} <br />
-      author comment --- {author.nickname} <br />
-      date comment --- {date} <br />*/}
       </ListItem>
-      <br />
-      <hr />
-      reactions |{' '}
+      <Divider />
+      reactions |
       <span>
         <button
           onClick={() =>
@@ -79,14 +74,12 @@ const CommentItem: React.FC<CommentItemType> = ({
             })
           }>
           😁
-        </button>{' '}
+        </button>
         count - {reactionsCount}
-      </span>{' '}
+      </span>
       <br />
-      <button onClick={() => test({ author, body, id })}>
-        answer to this comment
-      </button>
-      <hr />
+      <button onClick={() => test({ author, body, id })}>Ответить</button>
+      <Divider sx={{ marginBottom: '20px' }} />
     </>
   )
 }

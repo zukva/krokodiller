@@ -5,6 +5,7 @@ import { useAppSelector } from '../../../hooks/store'
 import { Button, Divider } from '@mui/material'
 import ChooseTopicTheme from './components/ChooseTopicTheme'
 import ForumList from './components/ForumList'
+import PageLayout from '../../common/page-layout/PageLayout'
 
 export const ForumPage = () => {
   const [topicThemeValue, setTopicThemeValue] = useState('Все')
@@ -28,7 +29,7 @@ export const ForumPage = () => {
     }
   }, [topicThemeValue])
   return (
-    <>
+    <PageLayout>
       <Button
         variant="contained"
         sx={{
@@ -55,6 +56,6 @@ export const ForumPage = () => {
       Темы: {topicThemeValue} | количество: {forumData.length}
       <Divider />
       <ForumList forumListData={forumData} />
-    </>
+    </PageLayout>
   )
 }

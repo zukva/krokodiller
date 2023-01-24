@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 const AnswerToComment: React.FC<{
@@ -8,18 +8,17 @@ const AnswerToComment: React.FC<{
   closeAnswerBlock?: () => void
 }> = ({ author, body, closeAnswerBlock, commentId }) => {
   return (
-    <Typography
+    <Box
       component={'span'}
       sx={{
         backgroundColor: 'lightgray',
         borderLeft: '4px solid lightblue',
+        display: 'block',
       }}>
-      author comment --- {author?.nickname}
-      body to answer comment --- {body}
-      comment id ==== {commentId}
-      <br />
+      <Typography>{author?.nickname}</Typography>
+      <Typography>{body}</Typography>
       <button onClick={closeAnswerBlock}>x</button>
-    </Typography>
+    </Box>
   )
 }
 

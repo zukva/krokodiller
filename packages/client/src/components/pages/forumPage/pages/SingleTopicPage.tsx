@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useAppSelector } from '../../../../hooks/store'
 import { TopicType } from '../../../../store/forum'
 import CommentsBlock from '../components/CommentsBlock/CommentsBlock'
+import PageLayout from '../../../common/page-layout/PageLayout'
 
 const SingleTopicPage = () => {
   const [data, setData] = useState({})
@@ -19,16 +20,18 @@ const SingleTopicPage = () => {
   }, [currentTopic])
 
   return (
-    <Container maxWidth="md" sx={{ m: '20px auto' }}>
-      {/* @ts-ignore */}
-      {data === currentTopic && <Topic {...data} />}
+    <PageLayout>
+      <Container maxWidth="md" sx={{ m: '20px auto' }}>
+        {/* @ts-ignore */}
+        {data === currentTopic && <Topic {...data} />}
 
-      <Divider sx={{ m: '10px 0' }}>
-        <Chip label="Комментарии" />
-      </Divider>
+        <Divider sx={{ m: '10px 0' }}>
+          <Chip label="Комментарии" />
+        </Divider>
 
-      <CommentsBlock />
-    </Container>
+        <CommentsBlock />
+      </Container>
+    </PageLayout>
   )
 }
 

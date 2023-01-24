@@ -24,7 +24,7 @@ const CommentsBlock = () => {
       const newComment: CommentType = {
         id: commentValue,
         body: commentValue,
-        author: { nickname: 'chi' },
+        author: { nickname: 'New Author' },
         parentId: id,
         answerComment: null,
         date: '',

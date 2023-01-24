@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { create, TopicType } from '../../../../store/forum'
 import { useAppDispatch } from '../../../../hooks/store'
+import PageLayout from '../../../common/page-layout/PageLayout'
+
 const AddTopicPage = () => {
   const [titleValue, setTitleValue] = useState('')
   const [contentValue, setContentValue] = useState('')
@@ -35,41 +37,43 @@ const AddTopicPage = () => {
     }
   }
   return (
-    <Paper
-      sx={{
-        padding: '30px',
-        maxWidth: '527px',
-        m: '20px auto',
-      }}>
-      <TextField
-        placeholder="Название темы топика"
-        fullWidth
-        value={titleValue}
-        onChange={e => setTitleValue(e.target.value)}
-      />
-      <Box sx={{ m: '20px 0' }}>
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Описание топика"
-          multiline
-          maxRows={4}
-          fullWidth
-          value={contentValue}
-          onChange={e => setContentValue(e.target.value)}
-        />
-      </Box>
-      <Box>
-        <ChooseTopicTheme changeTheme={getTopicTheme} />
-      </Box>
-      <Box
+    <PageLayout>
+      <Paper
         sx={{
-          m: '10px 0',
+          padding: '30px',
+          maxWidth: '527px',
+          m: '20px auto',
         }}>
-        <Button variant="contained" onClick={getTopicValues}>
-          Создать
-        </Button>
-      </Box>
-    </Paper>
+        <TextField
+          placeholder="Название темы топика"
+          fullWidth
+          value={titleValue}
+          onChange={e => setTitleValue(e.target.value)}
+        />
+        <Box sx={{ m: '20px 0' }}>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Описание топика"
+            multiline
+            maxRows={4}
+            fullWidth
+            value={contentValue}
+            onChange={e => setContentValue(e.target.value)}
+          />
+        </Box>
+        <Box>
+          <ChooseTopicTheme changeTheme={getTopicTheme} />
+        </Box>
+        <Box
+          sx={{
+            m: '10px 0',
+          }}>
+          <Button variant="contained" onClick={getTopicValues}>
+            Создать
+          </Button>
+        </Box>
+      </Paper>
+    </PageLayout>
   )
 }
 

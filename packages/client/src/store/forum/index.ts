@@ -35,18 +35,18 @@ const initialState = {
   topics: [
     {
       id: 'mokId-one for flood topic',
-      titleTopic: 'one for flood topic',
-      bodyTopic: 'some options',
+      titleTopic: 'Заголовок для темы общее',
+      bodyTopic: 'Описание для темы общее',
       tag: 'Общее',
-      author: { nickname: 'sam' },
+      author: { nickname: 'Jhon' },
       comments: [],
     },
     {
       id: 'mokId-two for Game topic',
-      titleTopic: 'one for flood topic',
-      bodyTopic: 'some options',
+      titleTopic: 'Заголовок для темы игра',
+      bodyTopic: 'Описание для темы игра',
       tag: 'Игра',
-      author: { nickname: 'jin' },
+      author: { nickname: 'Sandra' },
       comments: [],
     },
   ],
@@ -72,7 +72,6 @@ const topicSlice = createSlice({
       console.log('add new comment redux', topic?.bodyTopic)
       // @ts-ignore
       topic?.comments.push(action.payload)
-      console.log(topic?.comments.length)
     },
   },
 })
