@@ -22,7 +22,7 @@ const CommentsBlock = () => {
   const addComment = () => {
     if (commentValue) {
       const newComment: CommentType = {
-        id: commentValue,
+        id: Math.random().toString(36).substring(2, 9),
         body: commentValue,
         author: { nickname: 'New Author' },
         parentId: id,

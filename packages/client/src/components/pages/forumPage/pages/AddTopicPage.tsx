@@ -24,7 +24,7 @@ const AddTopicPage = () => {
   const getTopicValues = () => {
     if (titleValue && contentValue) {
       const newTopic: TopicType = {
-        id: `mokId-${titleValue}`,
+        id: Math.random().toString(36).substring(2, 9),
         titleTopic: titleValue,
         bodyTopic: contentValue,
         tag: themeValue,
