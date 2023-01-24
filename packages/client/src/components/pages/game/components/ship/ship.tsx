@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-
+import GAME_SETTINGS from '../../game-settings'
+const { canvas } = GAME_SETTINGS
 import { useCanvas, useAnimation } from '../../hooks'
 import useGameContext from '../../hooks/use-game-context'
 
@@ -14,11 +15,10 @@ function Ship({ isAnimating, mainShipFullHealthRef }: Props) {
   const isControl = useRef<boolean>(false)
   const initialXClick = useRef<number | null>(null)
   const delta = useRef<number>(0)
-  const initialXPosition = useRef<number>(game?.gameState.ship.x ?? 0)
 
   const animatedXPosition = useAnimation(
     0,
-    () => initialXPosition.current - delta.current
+    () =>  delta.current
   )
 
   const handleMouseDown = (event: MouseEvent) => {
@@ -26,12 +26,21 @@ function Ship({ isAnimating, mainShipFullHealthRef }: Props) {
     initialXClick.current = event.clientX
   }
 
+  const isShipInCanvas = (event: MouseEvent)=>{
+    return game ?!(game.gameState.ship.x + event.movementX <=0 ||
+      game.gameState.ship.x + event.movementX+ game.gameState.ship.width >= canvas.width ||
+      game.gameState.ship.y + event.movementY+ game.gameState.ship.height > canvas.height ||
+      game.gameState.ship.y + event.movementY < canvas.height/2
+    ) : false
+  }
+
   const handleMouseMove = (event: MouseEvent) => {
-    if (isControl.current && isAnimating && initialXClick.current) {
-      delta.current = initialXClick.current - event.clientX
+    if (isControl.current && isAnimating ) {
+      delta.current = game!.gameState.ship.x + event.movementX
+      if(!isShipInCanvas(event)){return}
       game?.gameState.ship.setCoord(
-        initialXPosition.current - delta.current,
-        game.gameState.ship.y
+        game!.gameState.ship.x + event.movementX,
+        game.gameState.ship.y + event.movementY
       )
     }
   }
