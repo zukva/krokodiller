@@ -6,6 +6,7 @@ import { createServer as createViteServer, ViteDevServer } from 'vite'
 import serialize from 'serialize-javascript'
 import createEmotionServer from '@emotion/server/create-instance'
 import cors from 'cors'
+import helmet from 'helmet'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const isProdMode = process.env.NODE_ENV === 'production'
@@ -31,6 +32,21 @@ async function createServer() {
           origin: process.env.VITE_CLIENT_PATH,
         })
       )
+      .use(helmet({
+        contentSecurityPolicy: {
+          directives: {
+            defaultSrc: `'self' *.ya-praktikum.tech`,
+            styleSrc: [
+              `'self'`,
+              `'unsafe-inline'`,
+              `fonts.googleapis.com`
+            ],
+            scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+          },
+        },
+        crossOriginResourcePolicy: { policy: 'cross-origin' },
+        referrerPolicy: { policy: 'strict-origin-when-cross-origin'},
+      }))
   } else {
     vite = await createViteServer({
       server: { middlewareMode: true },
