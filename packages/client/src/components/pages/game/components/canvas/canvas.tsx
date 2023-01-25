@@ -15,7 +15,7 @@ function Canvas({ height, width, isAnimating, children, className }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   // the canvas' context is stored once it's created
-  const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
+  const [ context, setContext ] = useState<CanvasRenderingContext2D | null>(null)
   useEffect(() => {
     if (canvasRef.current !== null) {
       const canvasContext = canvasRef.current.getContext('2d')
@@ -25,6 +25,16 @@ function Canvas({ height, width, isAnimating, children, className }: Props) {
       }
     }
   }, [])
+
+  // observer for pointer lock api
+  useEffect(() => {
+    if (isAnimating) {
+      if (canvasRef.current) canvasRef.current.requestPointerLock()
+    } else {
+      document.exitPointerLock()
+    }
+
+  }, [ isAnimating ])
 
   // making the component and the context re-render at every frame
   const [frameCount, setFrameCount] = useState(0)

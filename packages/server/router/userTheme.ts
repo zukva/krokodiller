@@ -8,5 +8,5 @@ export const themesRoutes = (router: Router) => {
     .post('/', [], UserThemeAPI.createOrUpdate)
     .get('/', [], UserThemeAPI.find)
 
-  router.use('/userTheme', themesRouter)
+  router.use('/api/userTheme', themesRouter)
 }

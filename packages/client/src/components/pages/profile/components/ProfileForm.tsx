@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { Person } from '@mui/icons-material'
-import { Avatar, Button, NoSsr } from '@mui/material'
+import { Button, NoSsr } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/store'
 import { changeProfile } from '../../../../store/profile'
 import { logout, userInfoSelector } from '../../../../store/auth'
 import AvatarModal from './AvatarModal'
-import { PRACTICUM_RESOURCES_PATH } from '../../../../config/api'
+import AppAvatar from '../../../common/app-avatar'
 
 const validationSchema = yup.object({
   login: yup
@@ -83,7 +83,7 @@ const ProfileForm = () => {
           handleToggleAvatarModal={handleToggleAvatarModal}
         />
       </NoSsr>
-      <Avatar
+      <AppAvatar
         alt="Ваш аватар"
         color="action"
         sx={{
@@ -93,10 +93,10 @@ const ProfileForm = () => {
           height: 120,
           cursor: 'pointer',
         }}
-        src={`${PRACTICUM_RESOURCES_PATH}/${userInfo?.avatar}`}
+        src={userInfo?.avatar}
         onClick={handleToggleAvatarModal}>
         <Person fill="true" fontSize="large" />
-      </Avatar>
+      </AppAvatar>
       <TextField
         label="Логин"
         size="medium"

@@ -49,7 +49,14 @@ function Game() {
   }
 
   return (
-    <Box>
+    <Box
+      sx={{
+        paddingTop: '30px',
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
       <Box
         sx={{
           width: '100%',

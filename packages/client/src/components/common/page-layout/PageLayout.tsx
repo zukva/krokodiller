@@ -1,21 +1,19 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { Box, Divider } from '@mui/material'
+import { Box, Container } from '@mui/material'
 
-import ThemeSwitcher from '../theme-switcher'
+import Header from '../Header/header'
 
 const PageLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Box>
-      <Box
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+      <Container
         sx={{
-          height: '80px',
+          flexGrow: 1,
           display: 'flex',
-          alignItems: 'center',
         }}>
-        <ThemeSwitcher />
-      </Box>
-      <Divider />
-      <Box>{children}</Box>
+        {children}
+      </Container>
     </Box>
   )
 }
