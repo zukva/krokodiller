@@ -64,6 +64,7 @@ const CommentItem: React.FC<CommentItemType> = ({
       reactions |
       <span>
         <button
+          style={{border: 'none', background: 'transparent'}}
           onClick={() =>
             setReactionsCount(prev => {
               if (prev > 0) {
