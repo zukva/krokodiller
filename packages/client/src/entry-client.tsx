@@ -27,6 +27,27 @@ const history = createReduxHistory(store)
 
 const cache = createEmotionCache()
 
+function startServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then(registration => {
+          console.log(
+            'ServiceWorker registration successful with scope: ',
+            registration.scope
+          );
+        })
+        .catch((error: string) => {
+          console.log('ServiceWorker registration failed: ', error);
+        });
+    });
+  }
+}
+// if (import.meta.env.PROD) {
+//   startServiceWorker();
+// }
+
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <React.StrictMode>
