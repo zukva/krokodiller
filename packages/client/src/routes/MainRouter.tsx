@@ -9,6 +9,8 @@ import { LeaderBoardPage } from '../components/pages/leaderBoardPage/leaderBoard
 import { ForumPage } from '../components/pages/forumPage/forumPage'
 import ProfilePage from '../components/pages/profile/profile'
 import GamePage from '../components/pages/game'
+import SingleTopicPage from '../components/pages/forumPage/pages/SingleTopicPage'
+import AddTopicPage from '../components/pages/forumPage/pages/AddTopicPage'
 
 export const MainRouter: React.FC = () => {
   return (
@@ -21,7 +23,14 @@ export const MainRouter: React.FC = () => {
           element={<LeaderBoardPage />}
         />
         <Route path={RoutesList.ForumPage} element={<ForumPage />} />
-
+        <Route
+          path={`${RoutesList.ForumPage}/:id`}
+          element={<SingleTopicPage />}
+        />
+        <Route
+          path={`${RoutesList.ForumPage}/add-topic`}
+          element={<AddTopicPage />}
+        />
         <Route path={RoutesList.ProfilePage} element={<ProfilePage />} />
         <Route path={RoutesList.GamePage} element={<GamePage />} />
         <Route path={RoutesList.StartPage} index element={<StartPage />} />
